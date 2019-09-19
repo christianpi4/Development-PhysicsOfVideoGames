@@ -11,7 +11,8 @@ void main() {
 
 	/*cout << v1.zero()<<endl;
 	cout << v2.zero()<<endl;*/
-	cout << v1.writevector(v1)<<endl;
+	v1.writevector(v1);
+	
 	cout << v1.is_zero()<<endl;
 
 

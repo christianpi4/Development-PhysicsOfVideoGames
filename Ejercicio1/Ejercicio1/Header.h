@@ -46,7 +46,7 @@ T vec3<T>::normalize() {
 
 }
 
-template <class T>
+template <class T=void>
 
 void vec3<T>::writevector(vec3 v) {
 
