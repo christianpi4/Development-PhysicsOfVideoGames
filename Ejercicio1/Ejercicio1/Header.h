@@ -8,19 +8,20 @@ template <class T=void>
 
 class vec3 {
 	
-	T x, y, z;
+	
 
 public:
-	
+	T x, y, z;
 	vec3(T, T, T);
 	
 	
 	T normalize();
 	void writevector(vec3);
-	void inicial(vec3 <int>);
+	void inicial(vec3);
 	T zero();
 	T is_zero();
-	T distance_to(vec3 <int>, vec3 <float>, vec3 <double>);
+	T distance_to(vec3 <int>, vec3 <float>, vec3 <double>, int);
+	friend vec3<T> operator +(vec3<T>&);
 
 };
 template <class T>
@@ -51,16 +52,16 @@ T vec3<T>::normalize() {
 
 template <class T>
 
-void vec3<T>::inicial(vec3 <int> v1) {
+void vec3<T>::inicial(vec3 v1) {
 
 
 	cout << "Elige el primer vector de tipo INT: " << endl;
 	cout << "X: " << endl;
-	cin >> v1.x;
+	cin >> x;
 	cout << "Y: " << endl;
-	cin >> v1.y;
+	cin >> y;
 	cout << "Z: " << endl;
-	cin >> v1.z;
+	cin >> z;
 	
 
 	/*cout << "Elige el segundo vector de tipo INT: " << endl;
@@ -119,8 +120,33 @@ T vec3<T>::is_zero() {
 }
 template <class T>
 
-T vec3<T>::distance_to(vec3 <int> v1, vec3 <float> v2, vec3 <double> v3) {
+T vec3<T>::distance_to(vec3 <int> v1, vec3 <float> v2, vec3 <double> v3, int opcion) {
+	
+	float res1=0, res2=0, res3=0;
+	if(opcion==1){
+		
+		res1=pow(pow(v1.x - v2.x,2) + pow(v1.y - v2.y,2) + pow(v1.z - v2.z,2),1/2);
+		return res1;
+	}
+	else if (opcion == 2) {
 
+		res2=pow(pow(v2.x - v3.x, 2) + pow(v2.y - v3.y, 2) + pow(v2.z - v3.z, 2), 1 / 2);
+		return res2;
+	}
+	else if (opcion == 3) {
 
+		res3=pow(pow(v3.x - v1.x, 2) + pow(v3.y - v1.y, 2) + pow(v3.z - v1.z, 2), 1 / 2);
+		return res3;
+	}
+	
+	
+}
 
+template <class T>
+vec3<T> operator +(vec3<T>& v1) {
+	vec3 <T>res(0, 0, 0);
+	res.x = this->x + v1.x;
+	res.y = this->y + v1.y;
+	res.z = this->z + v1.z;
+	return res;
 }
