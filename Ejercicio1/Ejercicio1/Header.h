@@ -8,21 +8,31 @@ template <class T=void>
 
 class vec3 {
 	
-	T x, y, z;
-
 public:
 	
+	T x, y, z;
+
 	vec3(T, T, T);
+		vec3();
 	
 	
 	T normalize();
 	void writevector(vec3);
-	void inicial(vec3 <int>);
+	void inicial();
 	T zero();
 	T is_zero();
 	T distance_to(vec3 <int>, vec3 <float>, vec3 <double>);
 
 };
+
+template <class T>
+vec3<T>::vec3() {
+
+	x = 0;
+	y = 0;
+	z = 0;
+
+}
 template <class T>
 vec3<T>::vec3(T x1, T y1, T z1) {
 
@@ -31,6 +41,8 @@ vec3<T>::vec3(T x1, T y1, T z1) {
 	z = z1;
 
 }
+
+
 template <class T>
 
 T vec3<T>::normalize() {
@@ -51,16 +63,22 @@ T vec3<T>::normalize() {
 
 template <class T>
 
-void vec3<T>::inicial(vec3 <int> v1) {
+void vec3<T>::inicial() {
 
-
+	cout << x << y << z << endl;
 	cout << "Elige el primer vector de tipo INT: " << endl;
-	cout << "X: " << endl;
-	cin >> v1.x;
-	cout << "Y: " << endl;
-	cin >> v1.y;
-	cout << "Z: " << endl;
-	cin >> v1.z;
+	cout << "X: ";
+	cin >> x;
+	cout << endl;
+	cout << "Y: ";
+	cin >> y;
+	cout << endl;
+	cout << "Z: ";
+	cin >> z;
+	cout << endl;
+
+	cout << "(" << x << "," << y << "," << z << ")" << endl;
+
 	
 
 	/*cout << "Elige el segundo vector de tipo INT: " << endl;
@@ -108,7 +126,7 @@ T vec3<T>::zero() {
 template <class T>
 
 T vec3<T>::is_zero() {
-	if (x == 0 & y == 0 & z == 0) {
+	if (x == 0 && y == 0 && z == 0) {
 		
 		return true;
 	}
@@ -120,6 +138,28 @@ T vec3<T>::is_zero() {
 template <class T>
 
 T vec3<T>::distance_to(vec3 <int> v1, vec3 <float> v2, vec3 <double> v3) {
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
