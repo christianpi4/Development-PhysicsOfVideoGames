@@ -8,22 +8,36 @@ template <class T=void>
 
 class vec3 {
 	
-	
 
 public:
+	
 	T x, y, z;
+
+
 	vec3(T, T, T);
+		vec3();
 	
 	
 	T normalize();
 	void writevector(vec3);
+
 	void inicial(vec3);
+
 	T zero();
 	T is_zero();
 	T distance_to(vec3 <int>, vec3 <float>, vec3 <double>, int);
 	friend vec3<T> operator +(vec3<T>&);
 
 };
+
+template <class T>
+vec3<T>::vec3() {
+
+	x = 0;
+	y = 0;
+	z = 0;
+
+}
 template <class T>
 vec3<T>::vec3(T x1, T y1, T z1) {
 
@@ -32,6 +46,8 @@ vec3<T>::vec3(T x1, T y1, T z1) {
 	z = z1;
 
 }
+
+
 template <class T>
 
 T vec3<T>::normalize() {
@@ -52,40 +68,59 @@ T vec3<T>::normalize() {
 
 template <class T>
 
-void vec3<T>::inicial(vec3 v1) {
 
-
-	cout << "Elige el primer vector de tipo INT: " << endl;
-	cout << "X: " << endl;
-	cin >> x;
-	cout << "Y: " << endl;
-	cin >> y;
-	cout << "Z: " << endl;
-	cin >> z;
-	
-
-	/*cout << "Elige el segundo vector de tipo INT: " << endl;
-	cout << "X: " << endl;
-	cin >> v2.x;
-	cout << "Y: " << endl;
-	cin >> v2.y;
-	cout << "Z: " << endl;
-	cin >> v2.z;
-	system("clear");
-
-	cout << "Elige el tercer vector de tipo INT: " << endl;
-	cout << "X: " << endl;
-	cin >> v3.x;
-	cout << "Y: " << endl;
-	cin >> v3.y;
-	cout << "Z: " << endl;
-	cin >> v3.z;
-	system("clear");*/
-
-	
-	//cout << "(" << v.x << "," << v.y << "," << v.z << ")" << endl;
-	/*return true;*/
-}
+//void vec3<T>::inicial(vec3 v1) {
+//
+//=======
+//void vec3<T>::inicial() {
+//
+//	cout << x << y << z << endl;
+//	cout << "Elige el primer vector de tipo INT: " << endl;
+//
+//	cout << "X: " << endl;
+//	cin >> x;
+//	cout << "Y: " << endl;
+//	cin >> y;
+//	cout << "Z: " << endl;
+//	cin >> z;
+////=======
+////	cout << "X: ";
+////	cin >> x;
+////	cout << endl;
+////	cout << "Y: ";
+////	cin >> y;
+////	cout << endl;
+////	cout << "Z: ";
+////	cin >> z;
+////	cout << endl;
+////
+////	cout << "(" << x << "," << y << "," << z << ")" << endl;
+////
+////>>>>>>> 61816c3e1e6dfd8b5b4171b40e03d9852d027b4b
+//	
+//
+//	/*cout << "Elige el segundo vector de tipo INT: " << endl;
+//	cout << "X: " << endl;
+//	cin >> v2.x;
+//	cout << "Y: " << endl;
+//	cin >> v2.y;
+//	cout << "Z: " << endl;
+//	cin >> v2.z;
+//	system("clear");
+//
+//	cout << "Elige el tercer vector de tipo INT: " << endl;
+//	cout << "X: " << endl;
+//	cin >> v3.x;
+//	cout << "Y: " << endl;
+//	cin >> v3.y;
+//	cout << "Z: " << endl;
+//	cin >> v3.z;
+//	system("clear");*/
+//
+//	
+//	//cout << "(" << v.x << "," << v.y << "," << v.z << ")" << endl;
+//	/*return true;*/
+//}
 
 template <class T>
 
@@ -109,7 +144,7 @@ T vec3<T>::zero() {
 template <class T>
 
 T vec3<T>::is_zero() {
-	if (x == 0 & y == 0 & z == 0) {
+	if (x == 0 && y == 0 && z == 0) {
 		
 		return true;
 	}
