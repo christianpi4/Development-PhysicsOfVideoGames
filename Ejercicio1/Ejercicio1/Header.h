@@ -16,6 +16,7 @@ public:
 	
 	
 	T normalize();
+	void writevector(vec3);
 	T zero();
 	T is_zero();
 	T distance_to(vec3, vec3, vec3);
@@ -47,6 +48,14 @@ T vec3<T>::normalize() {
 
 template <class T>
 
+void vec3<T>::writevector(vec3 v) {
+
+	cout << "(" << v.x << "," << v.y << "," << v.z << ")" << endl;
+	/*return true;*/
+}
+
+template <class T>
+
 T vec3<T>::zero() {
 
 	x = 0;
@@ -59,7 +68,13 @@ T vec3<T>::zero() {
 template <class T>
 
 T vec3<T>::is_zero() {
-
+	if (x == 0 & y == 0 & z == 0) {
+		
+		return true;
+	}
+	else {
+		return false;
+	}
 
 }
 template <class T>
