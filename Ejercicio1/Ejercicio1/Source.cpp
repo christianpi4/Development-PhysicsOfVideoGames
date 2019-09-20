@@ -3,10 +3,9 @@
 #include <iostream>
 #include "Header.h"
 
+
 void main() {
 
-
-	int opcion = 0;
 
 	vec3 <int> v1(0,0,0);
 	vec3 <float> v2(0,0,0);
@@ -32,7 +31,7 @@ void main() {
 		
 		cin >> i;
 
-		if (i = 1) {
+		if (i == 1) {
 			
 			
 			v1.normalize();
@@ -41,7 +40,7 @@ void main() {
 
 		}
 
-		else if (i = 2) {
+		else if (i == 2) {
 			
 			
 			v1.zero();
@@ -50,7 +49,7 @@ void main() {
 
 		}
 
-		else if (i = 3) {
+		else if (i == 3) {
 			
 			
 			v1.is_zero();
@@ -59,16 +58,19 @@ void main() {
 
 		}
 
-		else if (i = 4) {
+		else if (i == 4) {
 
-		
-		/*	v1.distance_to();
-			v2.distance_to();
-			v3.distance_to();*/
+			int opcion;
+
+			cout << "Elige una opcion 1(v1,v2), 2(v2,v3), 3(v1,v3): " << endl;
+			cin >> opcion;
+			
+			v1.distance_to(v1,v2,v3,opcion);
+			
 
 		}
 
-		else if (i = 5) {
+		else if (i == 5) {
 
 			v1.inicial();
 			v2.inicial();
@@ -76,7 +78,7 @@ void main() {
 
 		}
 
-		else if (i = 6) {
+		else if (i == 6) {
 
 			
 			v1.writevector();
@@ -85,17 +87,16 @@ void main() {
 
 		}
 		
-		else if (i = 7) {
+		else if (i == 7) {
 
 			system("pause");
 
 		}
 
 		
-		//cout << v1.distance_to(v1, v2, v3, opcion) << endl;*/
+		
 
 
 	} while (i != 7);
 
-	system("pause");
 }

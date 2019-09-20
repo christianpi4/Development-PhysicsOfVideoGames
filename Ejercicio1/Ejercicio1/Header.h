@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <locale.h>
 #include <iostream>
-
+#include <math.h>
 using namespace std;
 
 template <class T=void>
@@ -129,25 +129,25 @@ void vec3<T>::distance_to(vec3 <int> v1, vec3 <float> v2, vec3 <double> v3, int 
 
 	if(opcion==1){
 		
-		res1=pow(pow(v1.x - v2.x,2) + pow(v1.y - v2.y,2) + pow(v1.z - v2.z,2),1/2);
+		res1=sqrt(pow(v2.x - v1.x,2) + pow(v2.y - v1.y,2) + pow(v2.z - v1.z,2));
 
-		return res1;
+		cout << res1 << endl;
 
 	}
 
 	else if (opcion == 2) {
 
-		res2=pow(pow(v2.x - v3.x, 2) + pow(v2.y - v3.y, 2) + pow(v2.z - v3.z, 2), 1 / 2);
+		res2=sqrt(pow(v3.x - v2.x, 2) + pow(v3.y - v2.y, 2) + pow(v3.z - v2.z, 2));
 
-		return res2;
+		cout << res2 << endl;
 
 	}
 
 	else if (opcion == 3) {
 
-		res3=pow(pow(v3.x - v1.x, 2) + pow(v3.y - v1.y, 2) + pow(v3.z - v1.z, 2), 1 / 2);
+		res3=sqrt(pow(v3.x - v1.x, 2) + pow(v3.y - v1.y, 2) + pow(v3.z - v1.z, 2));
 
-		return res3;
+		cout << res3 << endl;
 
 	}
 	
