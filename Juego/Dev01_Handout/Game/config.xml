@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!-- Config file for the game -->
+<config>
+
+<window>
+    
+	<TITLE>MY FIRST GAME IN XML</TITLE>
+    	<FULLSCREEN id="false"/>
+    	<BORDERLESS id="false"/>
+    	<RESIZABLE id="true"/>
+    	<FULLSCREEN_WINDOWED id="false"/>
+    	<WIDTH id="1080"/>
+    	<HEIGHT id="720"/>
+    	<SCALE id="1"/>
+
+</window>
+
+<renderer>
+
+	<VSYNC id="false"/>
+
+</renderer>
+
+<audio>
+
+	<MASTER id="10"/>
+	<FX id="5"/>
+
+</audio>
+</config>
+
