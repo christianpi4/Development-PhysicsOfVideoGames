@@ -11,8 +11,8 @@ public:
 
 	j1Render();
 
-	void Load();
-	void Save();
+	bool Load();
+	bool Save();
 
 	pugi::xml_document	saveconfig_file;
 	pugi::xml_node		saveconfig;
@@ -46,6 +46,10 @@ public:
 
 	// Set background color
 	void SetBackgroundColor(SDL_Color color);
+
+	bool Load(pugi::xml_node&);
+	bool Save(pugi::xml_node&);
+
 
 public:
 

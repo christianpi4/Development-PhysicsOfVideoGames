@@ -276,39 +276,60 @@ void j1App::SaveFile() {
 
 	save = true;
 	LOG("SAVE");
-	Save();
 }
 
 void j1App::LoadFile() {
 
 	load = true;
 	LOG("LOAD");
-	Load();
 }
 
-bool j1App::Load() {
+bool j1App::Load() {								//read save config file module per module
 
-	bool ret1 = true;
-	
-	if (ret1 == true)
+	bool ret = LoadSaveConfig();
+
+																						//Poner codigo???????????????????????????????
+	if (ret == true)
 	{
 		p2List_item<j1Module*>* item;
 		item = modules.start;
 
-		while (item != NULL && ret1 == true)
+		while (item != NULL && ret == true)
 		{
-			ret1 = item->data->Load(saveconfig.child(item->data->name.GetString()));
+			ret = item->data->Load(saveconfig.child(item->data->name.GetString()));
 			item = item->next;
 		}
 	}
 
-	return ret1;
+	return ret;
+
+}
+
+bool j1App::LoadSaveConfig() {						//charge save file 
+
+	bool ret = true;
+	pugi::xml_parse_result result = saveconfig_file.load_file("savegame.xml");
+
+	if (result == NULL)
+	{
+		LOG("Could not load map xml file saveconfig.xml. pugi error: %s", result.description());
+		ret = false;
+	}
+	else
+	{
+		saveconfig = saveconfig_file.child("save");
+		saveapp_config = saveconfig.child("app");
+	}
+
+	return ret;
+
 
 }
 
 bool j1App::Save() {
 
-	//pugi::xml_parse_result result2 = config_file.load_file("savegame.xml");
+	pugi::xml_parse_result result2 = config_file.load_file("savegame.xml");
+	return true;
 
 }
 

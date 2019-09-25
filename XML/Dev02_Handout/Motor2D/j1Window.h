@@ -12,10 +12,6 @@ public:
 
 	j1Window();
 
-	bool Load();
-	bool Save();
-	bool	save;
-	bool	load;
 	pugi::xml_document	saveconfig_file;
 	pugi::xml_node		saveconfig;
 	pugi::xml_node		saveapp_config;

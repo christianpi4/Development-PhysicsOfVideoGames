@@ -61,6 +61,8 @@ private:
 	// Load config file
 	bool LoadConfig();
 
+	bool LoadSaveConfig();
+
 	// Call modules before each loop iteration
 	void PrepareUpdate();
 

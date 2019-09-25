@@ -14,8 +14,8 @@ public:
 
 	j1Audio();
 
-	void Load();
-	void Save();
+	bool Load();
+	bool Save();
 
 	pugi::xml_document	saveconfig_file;
 	pugi::xml_node		saveconfig;

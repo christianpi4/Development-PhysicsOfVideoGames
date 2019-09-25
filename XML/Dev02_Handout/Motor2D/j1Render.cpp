@@ -232,27 +232,15 @@ bool j1Render::DrawCircle(int x, int y, int radius, Uint8 r, Uint8 g, Uint8 b, U
 	return ret;
 }
 
-void j1Render::Load() {
+bool j1Render::Load(pugi::xml_node& load) {														//load camara position because node is render
 
-	pugi::xml_parse_result result1 = saveconfig_file.load_file("savegame.xml");
-
-	if (result1 == NULL)
-	{
-		LOG("Could not load map xml file savegame.xml. pugi error: %s", result1.description());
-		load = false;
-
-	}
-	else
-	{
-		saveconfig = saveconfig_file.child("savegame");
-		saveapp_config = saveconfig.child("app");
-		load = false;
-	}
-
+	camera.x = load.child("camera").attribute("x").as_int(2);
+	camera.y = load.child("camera").attribute("y").as_int(0);
+	return true;
 }
 
-void j1Render::Save() {
+bool j1Render::Save() {
 
 	//pugi::xml_parse_result result2 = config_file.load_file("savegame.xml");
-
+	return true;
 }

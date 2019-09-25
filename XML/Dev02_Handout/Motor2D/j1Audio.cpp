@@ -173,27 +173,14 @@ bool j1Audio::PlayFx(unsigned int id, int repeat)
 	return ret;
 }
 
-void j1Audio::Load() {
+bool j1Audio::Load() {
 
-	pugi::xml_parse_result result1 = saveconfig_file.load_file("savegame.xml");
-
-	if (result1 == NULL)
-	{
-		LOG("Could not load map xml file savegame.xml. pugi error: %s", result1.description());
-		load = false;
-
-	}
-	else
-	{
-		saveconfig = saveconfig_file.child("savegame");
-		saveapp_config = saveconfig.child("app");
-		load = false;
-	}
+	return true;
 
 }
 
-void j1Audio::Save() {
+bool j1Audio::Save() {
 
 	//pugi::xml_parse_result result2 = config_file.load_file("savegame.xml");
-
+	return true;
 }
