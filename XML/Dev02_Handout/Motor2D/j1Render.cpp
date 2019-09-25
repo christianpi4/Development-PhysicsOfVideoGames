@@ -90,6 +90,22 @@ bool j1Render::CleanUp()
 // TODO 6: Create a method to load the state
 // for now it will be camera's x and y
 
+bool j1Render::Load(pugi::xml_node& load) {														//load camara position because attribute is render
+
+	camera.x = load.child("camera").attribute("x").as_int(2);
+	camera.y = load.child("camera").attribute("y").as_int(0);
+	return true;
+}
+
+bool j1Render::Save(pugi::xml_node& save) {
+
+	save.append_child("camera");
+	save.child("camera").append_attribute("x") = camera.x;
+	save.child("camera").append_attribute("y") = camera.y;
+
+	return true;
+}
+
 // TODO 8: Create a method to save the state of the renderer
 // using append_child and append_attribute
 
@@ -232,15 +248,3 @@ bool j1Render::DrawCircle(int x, int y, int radius, Uint8 r, Uint8 g, Uint8 b, U
 	return ret;
 }
 
-bool j1Render::Load(pugi::xml_node& load) {														//load camara position because node is render
-
-	camera.x = load.child("camera").attribute("x").as_int(2);
-	camera.y = load.child("camera").attribute("y").as_int(0);
-	return true;
-}
-
-bool j1Render::Save() {
-
-	//pugi::xml_parse_result result2 = config_file.load_file("savegame.xml");
-	return true;
-}

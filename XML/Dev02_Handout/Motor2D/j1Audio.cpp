@@ -85,6 +85,8 @@ bool j1Audio::PlayMusic(const char* path, float fade_time)
 {
 	bool ret = true;
 
+	Mix_VolumeMusic(volume);
+
 	if(!active)
 		return false;
 
@@ -173,14 +175,17 @@ bool j1Audio::PlayFx(unsigned int id, int repeat)
 	return ret;
 }
 
-bool j1Audio::Load() {
-
+bool j1Audio::Load(pugi::xml_node& load) {
+	
+	volume = load.child("volume").attribute("value").as_int();
+	Mix_VolumeMusic(volume);
 	return true;
 
 }
 
-bool j1Audio::Save() {
+bool j1Audio::Save(pugi::xml_node& save) {
 
-	//pugi::xml_parse_result result2 = config_file.load_file("savegame.xml");
+	save.append_child("volume");
+	save.child("volume").append_attribute("value") = volume;
 	return true;
 }

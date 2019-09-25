@@ -12,10 +12,6 @@ public:
 
 	j1Window();
 
-	pugi::xml_document	saveconfig_file;
-	pugi::xml_node		saveconfig;
-	pugi::xml_node		saveapp_config;
-
 	// Destructor
 	virtual ~j1Window();
 

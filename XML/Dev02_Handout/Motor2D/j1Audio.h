@@ -14,14 +14,10 @@ public:
 
 	j1Audio();
 
-	bool Load();
-	bool Save();
+	bool Load(pugi::xml_node&);
+	bool Save(pugi::xml_node&);
 
-	pugi::xml_document	saveconfig_file;
-	pugi::xml_node		saveconfig;
-	pugi::xml_node		saveapp_config;
-	bool	save;
-	bool	load;
+	
 	// Destructor
 	virtual ~j1Audio();
 
@@ -39,6 +35,8 @@ public:
 
 	// Play a previously loaded WAV
 	bool PlayFx(unsigned int fx, int repeat = 0);
+
+	uint volume;
 
 private:
 
