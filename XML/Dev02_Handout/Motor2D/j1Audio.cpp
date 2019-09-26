@@ -179,13 +179,14 @@ bool j1Audio::Load(pugi::xml_node& load) {
 	
 	volume = load.child("volume").attribute("value").as_int();
 	Mix_VolumeMusic(volume);
-	return true;
+	bool ret = true;
+	return ret;
 
 }
 
 bool j1Audio::Save(pugi::xml_node& save) {
 
-	save.append_child("volume");
-	save.child("volume").append_attribute("value") = volume;
-	return true;
+	save.append_child("volume").append_attribute("value").set_value(volume);
+	bool ret = true;
+	return ret;
 }

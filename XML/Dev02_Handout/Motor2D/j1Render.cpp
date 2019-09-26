@@ -92,18 +92,20 @@ bool j1Render::CleanUp()
 
 bool j1Render::Load(pugi::xml_node& load) {														//load camara position because attribute is render
 
-	camera.x = load.child("camera").attribute("x").as_int(2);
-	camera.y = load.child("camera").attribute("y").as_int(0);
-	return true;
+	camera.x = load.child("camera").attribute("x").as_int();
+	camera.y = load.child("camera").attribute("y").as_int();
+	
+	bool ret = true;
+	return ret;
 }
 
 bool j1Render::Save(pugi::xml_node& save) {
 
 	save.append_child("camera");
-	save.child("camera").append_attribute("x") = camera.x;
-	save.child("camera").append_attribute("y") = camera.y;
-
-	return true;
+	save.child("camera").append_attribute("x").set_value(camera.x);
+	save.child("camera").append_attribute("y").set_value(camera.y);
+	bool ret = true;
+	return ret;
 }
 
 // TODO 8: Create a method to save the state of the renderer

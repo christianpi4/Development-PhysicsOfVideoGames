@@ -143,6 +143,27 @@ bool j1App::LoadConfig()
 	return ret;
 }
 
+bool j1App::LoadSaveConfig() {						//charge save file 
+
+	bool ret = true;
+	pugi::xml_parse_result result = saveconfig_file.load_file("savegame.xml");
+
+	if (result == NULL)
+	{
+		LOG("Could not load map xml file saveconfig.xml. pugi error: %s", result.description());
+		ret = false;
+	}
+	else
+	{
+		saveconfig = saveconfig_file.child("save");
+
+	}
+
+	return ret;
+
+
+}
+
 // ---------------------------------------------
 void j1App::PrepareUpdate()
 {
@@ -153,13 +174,13 @@ void j1App::FinishUpdate()
 {
 	// TODO 2: This is a good place to call load / Save functions
 	
-	if (save){
-		SaveFile();
-		save = false;
+	if (i_save){
+		Save();
+		i_save = false;
 	}
-	if (load){
-		LoadFile();
-		load = false;
+	if (i_load){
+		Load();
+		i_load = false;
 	}
 
 }
@@ -272,44 +293,37 @@ const char* j1App::GetOrganization() const
 	return organization.GetString();
 }
 
-void j1App::SaveFile() {
 
-	save = true;
-	LOG("SAVE");
-}
 
-void j1App::LoadFile() {
 
-	load = true;
-	LOG("LOAD");
-}
+const bool j1App::Save() {
 
-bool j1App::LoadSaveConfig() {						//charge save file 
+	bool ret = LoadSaveConfig();
 
-	bool ret = true;
-	pugi::xml_parse_result result = saveconfig_file.load_file("savegame.xml");
-
-	if (result == NULL)
+	if (ret == true)
 	{
-		LOG("Could not load map xml file saveconfig.xml. pugi error: %s", result.description());
-		ret = false;
-	}
-	else
-	{
-		saveconfig = saveconfig_file.child("save");
-		
+		p2List_item<j1Module*>* item;
+		item = modules.start;
+
+		while (item != NULL && ret == true)
+		{
+			saveconfig.remove_child(item->data->name.GetString());
+
+			saveconfig_file.set_value(item->data->name.GetString());
+			ret = item->data->Save(saveconfig.append_child(item->data->name.GetString()));
+			item = item->next;
+		}
+		saveconfig_file.save_file("savegame.xml");
 	}
 
 	return ret;
 
-
 }
 
-bool j1App::Load() {								//read save config file module per module
+const bool j1App::Load() {								//read save config file module per module
 
 	bool ret = LoadSaveConfig();
 
-																						//Poner codigo???????????????????????????????
 	if (ret == true)
 	{
 		p2List_item<j1Module*>* item;
@@ -322,28 +336,6 @@ bool j1App::Load() {								//read save config file module per module
 		}
 	}
 
-	return ret;
-
-}
-
-bool j1App::Save() {
-
-	pugi::xml_document saveconfig_file;
-
-	saveconfig_file.append_child("save");
-
-	bool ret = true;
-
-	p2List_item<j1Module*>* item;
-	item = modules.start;
-
-	while (item != NULL)
-	{
-		ret = item->data->Save(saveconfig_file.child("save").append_child(item->data->name.GetString()));
-		item = item->next;
-	}
-
-	LOG("PASA");
 	return ret;
 
 }

@@ -17,8 +17,8 @@ class j1App
 {
 public:
 
-	bool	save;
-	bool	load;
+	bool	i_save;
+	bool	i_load;
 
 	// Constructor
 	j1App(int argc, char* args[]);
@@ -50,11 +50,8 @@ public:
 	// TODO 1: Create methods to request save and load
 	// that can be called anytime
 
-	void LoadFile();
-	void SaveFile();
-
-	bool Load();
-	bool Save();
+	const bool Load();
+	const bool Save();
 
 private:
 
