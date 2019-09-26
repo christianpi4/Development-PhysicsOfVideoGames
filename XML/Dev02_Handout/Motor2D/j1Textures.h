@@ -31,6 +31,13 @@ public:
 	SDL_Texture* const	LoadSurface(SDL_Surface* surface);
 	void				GetSize(const SDL_Texture* texture, uint& width, uint& height) const;
 
+	//Load savegame 
+	
+	bool Load(pugi::xml_node&);
+
+	//Save savegame 
+	
+	bool Save(pugi::xml_node&);
 	
 
 public:

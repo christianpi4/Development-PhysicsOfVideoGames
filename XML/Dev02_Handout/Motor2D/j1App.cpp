@@ -146,11 +146,12 @@ bool j1App::LoadConfig()
 bool j1App::LoadSaveConfig() {						//charge save file 
 
 	bool ret = true;
+	
 	pugi::xml_parse_result result = saveconfig_file.load_file("savegame.xml");
 
 	if (result == NULL)
 	{
-		LOG("Could not load map xml file saveconfig.xml. pugi error: %s", result.description());
+		LOG("Could not load map xml file config.xml. pugi error: %s", result.description());
 		ret = false;
 	}
 	else
@@ -292,8 +293,6 @@ const char* j1App::GetOrganization() const
 {
 	return organization.GetString();
 }
-
-
 
 
 const bool j1App::Save() {

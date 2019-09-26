@@ -9,16 +9,9 @@ class j1Render : public j1Module
 {
 public:
 
+	//Constructor 
 	j1Render();
 
-	bool Load(pugi::xml_node&);
-	bool Save(pugi::xml_node&);
-
-	pugi::xml_document	saveconfig_file;
-	pugi::xml_node		saveconfig;
-	pugi::xml_node		saveapp_config;
-	bool	save;
-	bool	load;
 	// Destructor
 	virtual ~j1Render();
 
@@ -46,8 +39,14 @@ public:
 
 	// Set background color
 	void SetBackgroundColor(SDL_Color color);
-
 	
+	//Load savegame
+	
+	bool Load(pugi::xml_node&);
+	
+	//Save savegame
+	
+	bool Save(pugi::xml_node&);
 
 
 public:

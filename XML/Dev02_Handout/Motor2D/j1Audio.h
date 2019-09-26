@@ -38,6 +38,8 @@ public:
 
 	uint volume;
 
+	void mixvolume(bool);
+
 private:
 
 	_Mix_Music*			music;

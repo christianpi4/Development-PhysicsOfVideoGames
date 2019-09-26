@@ -24,6 +24,7 @@ bool j1Audio::Awake(pugi::xml_node& config)
 	LOG("Loading Audio Mixer");
 	bool ret = true;
 	SDL_Init(0);
+	volume = config.child("volume").attribute("id").as_float();
 
 	if(SDL_InitSubSystem(SDL_INIT_AUDIO) < 0)
 	{
@@ -175,9 +176,24 @@ bool j1Audio::PlayFx(unsigned int id, int repeat)
 	return ret;
 }
 
+void j1Audio::mixvolume(bool increase) {
+
+	if (increase)
+	{
+		if (volume < 179)volume += 0.1;
+		Mix_VolumeMusic(volume);
+	}
+	if (!increase) {
+
+		if (volume > 1) volume -= 0.1;
+		Mix_VolumeMusic(volume);
+	}
+
+};
+
 bool j1Audio::Load(pugi::xml_node& load) {
 	
-	volume = load.child("volume").attribute("value").as_int();
+	volume = load.child("volume").attribute("id").as_int();
 	Mix_VolumeMusic(volume);
 	bool ret = true;
 	return ret;
@@ -186,7 +202,8 @@ bool j1Audio::Load(pugi::xml_node& load) {
 
 bool j1Audio::Save(pugi::xml_node& save) {
 
-	save.append_child("volume").append_attribute("value").set_value(volume);
+	save.append_child("volume").append_attribute("id").set_value(volume);
 	bool ret = true;
 	return ret;
 }
+
