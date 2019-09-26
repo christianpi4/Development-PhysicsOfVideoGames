@@ -4,11 +4,10 @@
 	<window />
 	<textures />
 	<audio>
-		<volumemusic value="0" />
+		<volume id="0" />
 	</audio>
 	<scene />
 	<renderer>
-		<camera.x x="486" />
-		<camera.y y="276" />
+		<camera x="0" y="467" />
 	</renderer>
 </save>
