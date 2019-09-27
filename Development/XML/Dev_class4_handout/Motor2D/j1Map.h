@@ -12,15 +12,18 @@
 
 struct TileSet {
 
-	uint firstgid = 0u;
 	p2SString name;
-	uint height=0u;
-	uint tilewidth=0u;
-	uint tileheigth=0u;
+	uint firstgid = 0u;
+	uint tilewidth = 0u;
+	uint tileheight = 0u;
 	uint spacing =0u;
 	uint margin = 0u;
 
-	//image source = "tmw_desert_spacing.png" width = "265" height = "199";
+	p2SString name_file;
+	uint width_file;
+	uint height_file;
+
+	
 };
 
 // TODO 1: Create a struct needed to hold the information to Map node
@@ -38,7 +41,7 @@ public:
 
 	// Called before render is available
 	bool Awake(pugi::xml_node& conf);
-
+	
 	// Called each loop iteration
 	void Draw();
 
@@ -47,9 +50,18 @@ public:
 
 	// Load new map
 	bool Load(const char* path);
+	
+	
 
 private:
 
+	//Fill Info Map
+
+	bool FillInfoMap(pugi::xml_node& conf);
+	bool FillTileSet();
+	//bool FillLayer();
+	void LogMapData(bool, bool) const;
+	//void DrawTilesets(uint num = 0) const;
 
 public:
 
@@ -60,7 +72,8 @@ public:
 
 			OR_UNDEFINED,
 			OR_ORTOGONAL,
-			OR_ISOMETRIC
+			OR_ISOMETRIC,
+			OR_HEXAGONAL,
 
 		};
 		enum MapRenderOrder {
@@ -72,19 +85,29 @@ public:
 			RE_LEFT_UP,
 		};
 
+		MapOrientation orientation ;
+		MapRenderOrder renderer;
+
 		uint width = 0u;
 		uint height = 0u;
 		uint tilewidth = 0u;
-		uint tileheigth = 0u;
+		uint tileheight = 0u;
 		uint nextobjective = 0u;
 
 	};
 
-private:
+	Map map;
+	p2List<TileSet*> tilesets;
+	
 
+private:
+	
+	p2SString			path_map;
 	pugi::xml_document	map_file;
 	p2SString			folder;
 	bool				map_loaded;
+
+	p2List<SDL_Texture*> tile_texture;
 };
 
 #endif // __j1MAP_H__
