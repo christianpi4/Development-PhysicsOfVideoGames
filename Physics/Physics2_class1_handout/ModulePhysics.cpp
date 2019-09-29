@@ -16,9 +16,6 @@
 
 #endif
 
-#define METERS_TO_PIXELS
-#define PIXELS_TO_METERS  
-
 ModulePhysics::ModulePhysics(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
 	
@@ -39,16 +36,12 @@ bool ModulePhysics::Start()
 	// - You need to send it a default gravity
 	// - You need init the world in the constructor
 	// - Remember to destroy the world after using it
-	b2Vec2 gravity(0.0f, -10.0f);
+	b2Vec2 gravity(0.0f, 10.0f);
 	world = new b2World(gravity);
 
 	// TODO 4: Create a a big static circle as "ground"
+	Shape(200, 50, 50, false);
 
-	groundBodyDef.position.Set(0.0f, -10.0f);
-	b2Body* groundBody = world->CreateBody(&groundBodyDef);
-	b2PolygonShape groundBox; 
-	groundBox.SetAsBox(50.0f, 10.0f);
-	groundBody->CreateFixture(&groundBox, 0.0f);
 	return true;
 }
 
@@ -57,13 +50,38 @@ update_status ModulePhysics::PreUpdate()
 {
 	// TODO 3: Update the simulation ("step" the world)
 
-	for (int32 i = 0; i < 60; ++i) { 
+	 	world->Step(1.0f / 60.0f, 8, 3);
 		
-		world->Step(timeStep, velocityIterations, positionIterations);    
-		
-	}
+	
 
 	return UPDATE_CONTINUE;
+}
+
+void ModulePhysics::Shape(float r, float x, float y, bool d = false)
+{
+	b2BodyDef groundBodyDef;
+	groundBodyDef.position.Set(x, y);
+
+	if (d == true)
+		groundBodyDef.type = b2_dynamicBody;
+
+	b2Body* groundbody = world->CreateBody(&groundBodyDef);
+	b2CircleShape shape;
+	shape.m_radius = PIXELS_TO_METERS(r);
+	shape.m_type = b2Shape::e_circle;
+	
+	if (d == true)
+	{
+		b2FixtureDef frixtureDef;
+		frixtureDef.shape = &shape;
+		frixtureDef.density = 1.0f;
+		frixtureDef.friction = 0.3f;
+		groundbody->CreateFixture(&frixtureDef);
+	}
+	else
+		groundbody->CreateFixture(&shape, 0.0f);
+
+
 }
 
 // 
@@ -76,7 +94,7 @@ update_status ModulePhysics::PostUpdate()
 		debug = !debug;
 
 	if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN)
-		
+		Shape(50, PIXELS_TO_METERS(App->input->GetMouseX()),PIXELS_TO_METERS(App->input->GetMouseY()), true);
 
 	if(!debug)
 		return UPDATE_CONTINUE;
@@ -117,3 +135,4 @@ bool ModulePhysics::CleanUp()
 
 	return true;
 }
+

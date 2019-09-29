@@ -16,11 +16,11 @@ public:
 	
 	b2World* world = nullptr;
 	
-	float32 timeStep = 1.0f / 60.0f;
-	int32 velocityIterations = 8; 
-	int32 positionIterations = 3;
+	
+	
 
-	b2BodyDef groundBodyDef;
+	void Shape(float, float, float, bool);
+
 	
 
 private:
