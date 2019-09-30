@@ -10,6 +10,14 @@
 // Ignore Terrain Types and Tile Types for now, but we want the image!
 // ----------------------------------------------------
 
+struct Layer
+{
+	p2SString name;
+	uint width;
+	uint height;
+	uint* data;
+};
+
 struct TileSet {
 
 	p2SString name;
@@ -59,9 +67,9 @@ private:
 
 	bool FillInfoMap(pugi::xml_node& conf);
 	bool FillTileSet();
-	//bool FillLayer();
-	void LogMapData(bool, bool) const;
-	//void DrawTilesets(uint num = 0) const;
+	bool FillLayer();
+	void LogMapData(bool, bool, bool) const;
+	void DrawTilesets(uint num = 0) const;
 
 public:
 
@@ -99,6 +107,13 @@ public:
 	Map map;
 	p2List<TileSet*> tilesets;
 	
+	p2List<SDL_Texture*> tile_texture;
+	p2List<Layer*> layers;
+
+	uint Get(uint, uint, uint) const;
+	p2Point<uint> GetTilePos(uint, uint) const;
+	inline p2Point<uint> GetWorldPos(uint, uint) const;
+	SDL_Rect tile_id(uint, uint*) const;
 
 private:
 	
@@ -107,7 +122,8 @@ private:
 	p2SString			folder;
 	bool				map_loaded;
 
-	p2List<SDL_Texture*> tile_texture;
+	
+
 };
 
 #endif // __j1MAP_H__

@@ -61,15 +61,44 @@ bool j1Scene::Update(float dt)
 	if(App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
 		App->render->camera.x += 1;
 
-	//App->render->Blit(img, 0, 0);
+	//App->render->Blit(img,0, 0);
 	App->map->Draw();
 
 	// TODO 7: Set the window title like
 	// "Map:%dx%d Tiles:%dx%d Tilesets:%d"
-	p2SString title("Map:%dx%d Tiles:%dx%d Tilesets:%d",
-					0, 0,
-					0, 0,
-					0);
+
+	p2SString title("Map:");
+	std::string numbers;
+	numbers = std::to_string(App->map->map.width);
+	title += numbers.c_str();
+	title += "x";
+	numbers = std::to_string(App->map->map.height);
+	title += numbers.c_str();
+
+	title += " Tiles:";
+	numbers = std::to_string(App->map->map.tilewidth);
+	title += numbers.c_str();
+	title += "x";
+	numbers = std::to_string(App->map->map.tileheight);
+	title += numbers.c_str();
+
+	title += " Tilesets:";
+	numbers = std::to_string(App->map->tilesets.count());
+	title += numbers.c_str();
+
+	int x = 0;
+	int y = 0;
+
+	App->input->GetMousePosition(x, y);
+
+	p2Point<uint> TilePos = App->map->GetTilePos(x,y);
+
+	title += " Tile:";
+	numbers = std::to_string(TilePos.x);
+	title += numbers.c_str();
+	title += "x";
+	numbers = std::to_string(TilePos.y);
+	title += numbers.c_str();
 
 	App->win->SetTitle(title.GetString());
 	return true;
