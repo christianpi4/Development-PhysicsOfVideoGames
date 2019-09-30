@@ -94,7 +94,7 @@ update_status ModulePhysics::PostUpdate()
 		debug = !debug;
 
 	if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN)
-		Shape(50, PIXELS_TO_METERS(App->input->GetMouseX()),PIXELS_TO_METERS(App->input->GetMouseY()), true);
+		Shape(rand()%50+10, PIXELS_TO_METERS(App->input->GetMouseX()),PIXELS_TO_METERS(App->input->GetMouseY()), true);
 
 	if(!debug)
 		return UPDATE_CONTINUE;
