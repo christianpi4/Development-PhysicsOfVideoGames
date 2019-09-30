@@ -69,7 +69,7 @@ private:
 	bool FillTileSet();
 	bool FillLayer();
 	void LogMapData(bool, bool, bool) const;
-	void DrawTilesets(uint num = 0) const;
+	void DrawLayers(uint num = 0) const;
 
 public:
 

@@ -34,7 +34,7 @@ void j1Map::Draw()
 
 	// TODO 6: Iterate all tilesets and draw all their 
 	// images in 0,0 (you should have only one tileset for now)
-	DrawTilesets();
+	DrawLayers();
 
 }
 
@@ -229,7 +229,58 @@ bool j1Map::FillLayer()
 	return ret;
 }
 
-void j1Map::DrawTilesets(uint num) const
+void j1Map::LogMapData(bool loadmap, bool loadtiles, bool loadlayers) const
+{
+	if (loadmap && loadmap && loadlayers)
+	{
+		LOG("Successfully parsed map XML file: %s", path_map.GetString());
+	}
+	else
+		LOG("Error loading map XML file: %s", path_map.GetString());
+
+	LOG("MapInfo----");
+
+	LOG("width: %d", map.width);
+	LOG("height: %d", map.height);
+	LOG("tilewidth: %d", map.tilewidth);
+	LOG("tileheight: %d", map.tileheight);
+
+	LOG("TileSet----");
+
+	for (uint i = 0; i < tilesets.count(); i++)
+	{
+		LOG("name: %s", tilesets[i]->name.GetString());
+		LOG("firstgid: %d", tilesets[i]->firstgid);
+		LOG("tile width: %d", tilesets[i]->tilewidth);
+		LOG("tile height: %d", tilesets[i]->tileheight);
+		LOG("spacing: %d", tilesets[i]->spacing);
+		LOG("margin: %d", tilesets[i]->margin);
+		LOG("---");
+		LOG("image name: %s", tilesets[i]->name_file.GetString());
+		LOG("image width: %d", tilesets[i]->width_file);
+		LOG("image height: %d", tilesets[i]->height_file);
+	}
+
+	LOG("LayersInfo----");
+
+	for (uint i = 0; i < layers.count(); i++)
+	{
+		LOG("name: %s", layers[i]->name.GetString());
+		LOG("width: %d", layers[i]->width);
+		LOG("height: %d", layers[i]->height);
+
+		if (loadlayers == true)
+			LOG("Layer data is successful load.");
+		else
+			LOG("Problems while program was loading layer data.");
+
+		LOG("Printing all data:");
+		for (uint j = 0; j < layers[i]->width*layers[i]->height; j++)
+			LOG("data[%d]: %d", j, layers[i]->data[j]);
+	}
+}
+
+void j1Map::DrawLayers(uint num) const
 {
 	uint id_tileset = 0;
 	p2Point<uint> coordenates;
@@ -274,6 +325,8 @@ inline p2Point<uint> j1Map::GetWorldPos(uint x, uint y) const
 
 	return ret;
 }
+
+
 
 SDL_Rect j1Map::tile_id(uint id, uint* id_tileset) const
 {
@@ -333,53 +386,3 @@ SDL_Rect j1Map::tile_id(uint id, uint* id_tileset) const
 	return ret;
 }
 
-void j1Map::LogMapData(bool loadmap, bool loadtiles, bool loadlayers) const
-{
-	if (loadmap && loadmap && loadlayers)
-	{
-		LOG("Successfully parsed map XML file: %s", path_map.GetString());
-	}
-	else
-		LOG("Error loading map XML file: %s", path_map.GetString());
-
-	LOG("MapInfo----");
-
-	LOG("width: %d", map.width);
-	LOG("height: %d", map.height);
-	LOG("tilewidth: %d", map.tilewidth);
-	LOG("tileheight: %d", map.tileheight);
-
-	LOG("TileSet----");
-
-	for (uint i = 0; i < tilesets.count(); i++)
-	{
-		LOG("name: %s", tilesets[i]->name.GetString());
-		LOG("firstgid: %d", tilesets[i]->firstgid);
-		LOG("tile width: %d", tilesets[i]->tilewidth);
-		LOG("tile height: %d", tilesets[i]->tileheight);
-		LOG("spacing: %d", tilesets[i]->spacing);
-		LOG("margin: %d", tilesets[i]->margin);
-		LOG("---");
-		LOG("image name: %s", tilesets[i]->name_file.GetString());
-		LOG("image width: %d", tilesets[i]->width_file);
-		LOG("image height: %d", tilesets[i]->height_file);
-	}
-
-	LOG("LayersInfo----");
-
-	for (uint i = 0; i < layers.count(); i++)
-	{
-		LOG("name: %s", layers[i]->name.GetString());
-		LOG("width: %d", layers[i]->width);
-		LOG("height: %d", layers[i]->height);
-
-		if (loadlayers == true)
-			LOG("Layer data is successful load.");
-		else
-			LOG("Problems while program was loading layer data.");
-
-		LOG("Printing all data:");
-		for (uint j = 0; j < layers[i]->width*layers[i]->height; j++)
-			LOG("data[%d]: %d", j, layers[i]->data[j]);
-	}
-}
