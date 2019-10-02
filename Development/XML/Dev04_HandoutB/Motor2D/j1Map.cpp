@@ -356,14 +356,14 @@ inline p2Point<uint> j1Map::GetWorldPos(uint x, uint y) const
 	return ret;
 }
 
-void j1Map::DrawLayer(/*uint num*/){
+void j1Map::DrawLayer(){
 	
 	uint id_tileset = 0;
 	p2Point<uint> coordenates;
 
-	for (uint y = 0; y <layers[y]->height; y++)
+	for (uint y = 0; y < layers[y]->height; y++)
 	{
-		for (uint x = 0; x < data.width; x++)
+		for (uint x = 0; x < layers[y]->width; x++)
 		{
 			SDL_Rect tile = tile_id(layers[y]->data[Get(x, y)], &id_tileset);
 

@@ -9,6 +9,8 @@
 #include "j1Map.h"
 #include "j1Scene.h"
 
+#include <string>
+
 j1Scene::j1Scene() : j1Module()
 {
 	name.create("scene");
@@ -44,10 +46,10 @@ bool j1Scene::PreUpdate()
 bool j1Scene::Update(float dt)
 {
 	if(App->input->GetKey(SDL_SCANCODE_L) == KEY_DOWN)
-		App->LoadGame();
+		App->LoadGame("save_game.xml");
 
 	if(App->input->GetKey(SDL_SCANCODE_S) == KEY_DOWN)
-		App->SaveGame();
+		App->SaveGame("save_game.xml");
 
 	if(App->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT)
 		App->render->camera.y -= 1;
@@ -66,12 +68,14 @@ bool j1Scene::Update(float dt)
 
 	p2SString title("Map:%dx%d Tiles:%dx%d Tilesets:%d", App->map->data.width, App->map->data.height, App->map->data.tile_width, App->map->data.tile_height, App->map->tilesets.count());
 
-	App->win->SetTitle(title.GetString());
+	
 	
 	int x = 0;
 	int y = 0;
 	p2Point<uint> TilePos = App->map->GetTilePos(x, y);
+	App->input->GetMousePosition(x, y);
 
+	App->win->SetTitle(title.GetString());
 	return true;
 }
 

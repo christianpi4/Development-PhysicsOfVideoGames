@@ -13,7 +13,7 @@ struct MapLayer {
 	p2SString name;
 	uint width;
 	uint height;
-	uint data;
+	uint* data;
 	uint* tilegid;
 
 };
