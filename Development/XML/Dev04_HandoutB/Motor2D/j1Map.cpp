@@ -32,6 +32,7 @@ void j1Map::Draw()
 		return;
 
 	// TODO 5: Prepare the loop to iterate all the tiles in a layer
+	DrawLayer();
 
 	// TODO 9: Complete the draw function
 
@@ -45,27 +46,27 @@ bool j1Map::CleanUp()
 
 	// Remove all tilesets
 	p2List_item<TileSet*>* item;
-	item = data.tilesets.start;
+	item = tilesets.start;
 
 	while(item != NULL)
 	{
 		RELEASE(item->data);
 		item = item->next;
 	}
-	data.tilesets.clear();
+	tilesets.clear();
 
 	// TODO 2: clean up all layer data
 	// Remove all layers
 
 	p2List_item<MapLayer*>* item2;
-	item2 = data.layers.start;
+	item2 = layers.start;
 
 	while (item2 != NULL)
 	{
 		RELEASE(item2->data);
 		item2 = item2->next;
 	}
-	data.layers.clear();
+	layers.clear();
 
 	// Clean up the pugui tree
 	map_file.reset();
@@ -110,7 +111,7 @@ bool j1Map::Load(const char* file_name)
 			ret = LoadTilesetImage(tileset, set);
 		}
 
-		data.tilesets.add(set);
+		tilesets.add(set);
 	}
 
 	
@@ -127,7 +128,7 @@ bool j1Map::Load(const char* file_name)
 			ret = LoadLayer(layernode, layer);
 		}
 
-		data.layers.add(layer);
+		layers.add(layer);
 	}
 
 
@@ -137,7 +138,7 @@ bool j1Map::Load(const char* file_name)
 		LOG("width: %d height: %d", data.width, data.height);
 		LOG("tile_width: %d tile_height: %d", data.tile_width, data.tile_height);
 
-		p2List_item<TileSet*>* item = data.tilesets.start;
+		p2List_item<TileSet*>* item = tilesets.start;
 		while(item != NULL)
 		{
 			TileSet* s = item->data;
@@ -151,7 +152,7 @@ bool j1Map::Load(const char* file_name)
 		// TODO 4: Add info here about your loaded layers
 		// Adapt this code with your own variables
 		
-		p2List_item<MapLayer*>* item_layers = data.layers.start;
+		p2List_item<MapLayer*>* item_layers = layers.start;
 		while(item_layers != NULL)
 		{
 			MapLayer* l = item_layers->data;
@@ -326,4 +327,107 @@ bool j1Map::LoadLayer(pugi::xml_node& layernode, MapLayer* layer)
 	
 	return ret;
 	   	 
+}
+
+inline uint j1Map::Get(uint x, uint y) const //, uint num) const
+{
+	return (y*data.width + x);
+}
+
+p2Point<uint> j1Map::GetTilePos(uint wx, uint wy) const
+{
+	p2Point<uint> ret;
+
+	ret.x = wx / data.tile_width;
+
+	ret.y = wy / data.tile_height;
+
+	return ret;
+}
+
+inline p2Point<uint> j1Map::GetWorldPos(uint x, uint y) const
+{
+
+	p2Point<uint> ret;
+
+	ret.x = x * data.tile_width;
+	ret.y = y * data.tile_height;
+
+	return ret;
+}
+
+void j1Map::DrawLayer(/*uint num*/){
+	
+	uint id_tileset = 0;
+	p2Point<uint> coordenates;
+
+	for (uint y = 0; y <layers[y]->height; y++)
+	{
+		for (uint x = 0; x < data.width; x++)
+		{
+			SDL_Rect tile = tile_id(layers[y]->data[Get(x, y)], &id_tileset);
+
+			coordenates = GetWorldPos(x, y);
+
+			App->render->Blit(texture[id_tileset], coordenates.x, coordenates.y, &tile);
+		}
+	}
+}
+
+SDL_Rect j1Map::tile_id(uint id, uint* id_tileset) const
+{
+	uint ret_x = 0;
+	uint ret_y = 0;
+
+	uint i = 0;
+
+	for (i; i < tilesets.count(); i++)
+	{
+		uint width = tilesets[i]->width_file - (tilesets[i]->margin * 2);
+		uint height = tilesets[i]->height_file - (tilesets[i]->margin * 2);
+
+		uint tiles_x = (width % tilesets[i]->tile_width) + 1;
+		uint tiles_y = (height % tilesets[i]->tile_height) + 1;
+
+		if (id > tiles_x*tiles_y)
+			continue;
+
+		id_tileset = new uint{ i };
+
+		ret_x = tilesets[i]->margin;
+		ret_y = tilesets[i]->margin;
+
+		uint count_tile = tilesets[i]->firstgid;
+
+		for (uint y = 0; y < tiles_y; y++)
+		{
+			for (uint x = 0; x < tiles_x; x++, count_tile++)
+			{
+
+				if (count_tile != id)
+					ret_x += tilesets[i]->tile_width + tilesets[i]->spacing;
+				else
+					break;
+			}
+
+			if (count_tile != id)
+			{
+				ret_y += tilesets[i]->tile_height + tilesets[i]->spacing;
+				ret_x = tilesets[i]->margin;
+			}
+			else
+			{
+				if (ret_x == tilesets[i]->width_file)
+				{
+					ret_x = tilesets[i]->margin;
+					ret_y += tilesets[i]->tile_height + tilesets[i]->spacing;
+				}
+				break;
+			}
+		}
+	}
+
+	SDL_Rect ret = { ret_x, ret_y, tilesets[i - 1]->tile_width, tilesets[i - 1]->tile_height };
+
+	return ret;
 }

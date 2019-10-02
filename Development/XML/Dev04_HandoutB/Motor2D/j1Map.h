@@ -13,7 +13,7 @@ struct MapLayer {
 	p2SString name;
 	uint width;
 	uint height;
-	uint* data;
+	uint data;
 	uint* tilegid;
 
 };
@@ -39,6 +39,12 @@ struct TileSet
 	int					num_tiles_height;
 	int					offset_x;
 	int					offset_y;
+
+	uint				width_file;
+	uint				height_file;
+
+
+
 };
 
 enum MapTypes
@@ -57,8 +63,8 @@ struct MapData
 	int					tile_height;
 	SDL_Color			background_color;
 	MapTypes			type;
-	p2List<TileSet*>	tilesets;
-	p2List<MapLayer*>	layers;
+	
+	
 	// TODO 2: Add a list/array of layers to the map!
 };
 
@@ -84,26 +90,43 @@ public:
 	// Load new map
 	bool Load(const char* path);
 
+	p2Point<uint> GetTilePos(uint, uint) const; //Gets the position of the tile
+
 	// TODO 8: Create a method that translates x,y coordinates from map positions to world positions
 
 private:
 
-	bool LoadMap();
-	bool LoadTilesetDetails(pugi::xml_node& tileset_node, TileSet* set);
-	bool LoadTilesetImage(pugi::xml_node& tileset_node, TileSet* set);
+	bool LoadMap(); //Load the map
+	bool LoadLayer(pugi::xml_node& node, MapLayer* layer); //Load the layer
+	
+	bool LoadTilesetDetails(pugi::xml_node& tileset_node, TileSet* set); //Load all details of the tilset
+	bool LoadTilesetImage(pugi::xml_node& tileset_node, TileSet* set); //Load the image of the tileset
 	// TODO 3: Create a method that loads a single laye
-	bool LoadLayer(pugi::xml_node& node, MapLayer* layer);
-
+	
+	void DrawLayer(/*uint num = 0*/); //Draw the layer
+	
+	
+	
 public:
 
 	MapData data;
+	p2List<TileSet*>	tilesets;
+	p2List<MapLayer*>	layers;
 	
+	inline uint Get(uint, uint) const; // , uint) const; //Tells the x the y and the number
+	inline p2Point<uint> GetWorldPos(uint, uint) const; //Gets the position in the world
+	SDL_Rect tile_id(uint, uint*) const;
+	p2List<SDL_Texture*> texture;
 
 private:
 
 	pugi::xml_document	map_file;
 	p2SString			folder;
 	bool				map_loaded;
+
+	
+	
+	
 };
 
 #endif // __j1MAP_H__
