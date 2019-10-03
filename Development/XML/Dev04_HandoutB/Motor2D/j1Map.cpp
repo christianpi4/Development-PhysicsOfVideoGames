@@ -22,7 +22,7 @@ bool j1Map::Awake(pugi::xml_node& config)
 	bool ret = true;
 
 	folder.create(config.child("folder").child_value());
-
+	idtile = config.child("id").attribute("value").as_int();
 	return ret;
 }
 
@@ -32,7 +32,34 @@ void j1Map::Draw()
 		return;
 
 	// TODO 5: Prepare the loop to iterate all the tiles in a layer
-	DrawLayer();
+	uint id_tileset = 0;
+	p2Point<uint> coord;
+
+	// TODO 5: Prepare the loop to iterate all the tiles in a layer
+	p2List_item<MapLayer*>* item_layer = layers.start;
+	while (item_layer != NULL)
+	{
+		id_tileset++;
+		if (id_tileset == idtile) {
+			MapLayer* l = item_layer->data;
+			for (int y = 0; y < l->height; y++) {
+
+				for (int x = 0; x < l->width; x++) {
+
+					if (l->tilegid[l->Get(x, y)] != 0) {
+						SDL_Rect rect2;
+						rect2 = tile_id(idtile, l->tilegid[l->Get(x, y)]);
+						coord = GetWorldPos(x, y, rect2.w);
+
+						App->render->Blit(texture, coord.x, coord.y, &rect2);
+					}
+				}
+			}
+		}
+		item_layer = item_layer->next;
+
+		
+	}
 
 	// TODO 9: Complete the draw function
 
@@ -79,7 +106,7 @@ bool j1Map::Load(const char* file_name)
 {
 	bool ret = true;
 	p2SString tmp("%s%s", folder.GetString(), file_name);
-
+	texture = App->tex->Load("maps/tmw_desert_spacing.png");
 	pugi::xml_parse_result result = map_file.load_file(tmp.GetString());
 
 	if(result == NULL)
@@ -329,105 +356,35 @@ bool j1Map::LoadLayer(pugi::xml_node& layernode, MapLayer* layer)
 	   	 
 }
 
-inline uint j1Map::Get(uint x, uint y) const //, uint num) const
-{
-	return (y*data.width + x);
-}
 
-p2Point<uint> j1Map::GetTilePos(uint wx, uint wy) const
-{
-	p2Point<uint> ret;
 
-	ret.x = wx / data.tile_width;
 
-	ret.y = wy / data.tile_height;
 
-	return ret;
-}
-
-inline p2Point<uint> j1Map::GetWorldPos(uint x, uint y) const
+inline p2Point<uint> j1Map::GetWorldPos(uint x, uint y, uint map) const
 {
 
 	p2Point<uint> ret;
 
-	ret.x = x * data.tile_width;
-	ret.y = y * data.tile_height;
+	ret.x = x * map;
+	ret.y = y * map;
 
 	return ret;
 }
 
-void j1Map::DrawLayer(){
+SDL_Rect j1Map::tile_id(uint id, uint id_tileset) const
+{
 	
-	uint id_tileset = 0;
-	p2Point<uint> coordenates;
+	SDL_Rect rect;
+	p2List_item<TileSet*>* item = App->map->tilesets.start;
 
-	for (uint y = 0; y < layers[y]->height; y++)
-	{
-		for (uint x = 0; x < layers[y]->width; x++)
-		{
-			SDL_Rect tile = tile_id(layers[y]->data[Get(x, y)], &id_tileset);
-
-			coordenates = GetWorldPos(x, y);
-
-			App->render->Blit(texture[id_tileset], coordenates.x, coordenates.y, &tile);
-		}
-	}
-}
-
-SDL_Rect j1Map::tile_id(uint id, uint* id_tileset) const
-{
-	uint ret_x = 0;
-	uint ret_y = 0;
-
-	uint i = 0;
-
-	for (i; i < tilesets.count(); i++)
-	{
-		uint width = tilesets[i]->width_file - (tilesets[i]->margin * 2);
-		uint height = tilesets[i]->height_file - (tilesets[i]->margin * 2);
-
-		uint tiles_x = (width % tilesets[i]->tile_width) + 1;
-		uint tiles_y = (height % tilesets[i]->tile_height) + 1;
-
-		if (id > tiles_x*tiles_y)
-			continue;
-
-		id_tileset = new uint{ i };
-
-		ret_x = tilesets[i]->margin;
-		ret_y = tilesets[i]->margin;
-
-		uint count_tile = tilesets[i]->firstgid;
-
-		for (uint y = 0; y < tiles_y; y++)
-		{
-			for (uint x = 0; x < tiles_x; x++, count_tile++)
-			{
-
-				if (count_tile != id)
-					ret_x += tilesets[i]->tile_width + tilesets[i]->spacing;
-				else
-					break;
-			}
-
-			if (count_tile != id)
-			{
-				ret_y += tilesets[i]->tile_height + tilesets[i]->spacing;
-				ret_x = tilesets[i]->margin;
-			}
-			else
-			{
-				if (ret_x == tilesets[i]->width_file)
-				{
-					ret_x = tilesets[i]->margin;
-					ret_y += tilesets[i]->tile_height + tilesets[i]->spacing;
-				}
-				break;
-			}
-		}
+	while (item->data->firstgid == id) {
+		
+		TileSet* t = item->data;
+		rect.h = t->tile_height;
+		rect.w = t->tile_width;
+		rect.x = t->margin + ((rect.w + t->spacing)*((id_tileset - 1) % t->num_tiles_width));
+		rect.y = t->margin + ((rect.h + t->spacing)*((id_tileset - 1) / t->num_tiles_width));
 	}
 
-	SDL_Rect ret = { ret_x, ret_y, tilesets[i - 1]->tile_width, tilesets[i - 1]->tile_height };
-
-	return ret;
+	return rect;
 }
