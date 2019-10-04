@@ -206,6 +206,7 @@ update_status ModulePhysics::PostUpdate()
 		b2Body* b4 = world->CreateBody(&body3);
 
 		int rick_head[66] = {
+			
 			41, 39,
 			11, 34,
 			28, 63,
@@ -246,14 +247,14 @@ update_status ModulePhysics::PostUpdate()
 				
 		for (int i = 0; i < 66; i++) {
 
-			rick_head[i].Set(PIXEL_TO_METERS(rick_head[counter]), PIXEL_TO_METERS(rick_head[counter + 1));
+			rick_head[i].Set(PIXEL_TO_METERS(rick_head[counter]), PIXEL_TO_METERS(rick_head[counter + 1]));
 			counter += 2;
 			LOG("POINTS %i", rick_head[i]);
 		}
 
 		rick_head.position.Set(PIXEL_TO_METERS(App->input->GetMouseX()), PIXEL_TO_METERS(App->input->GetMouseY()));
+		
 		b2ChainShape chain;
-
 		chain.CreateLoop(rick_head, 33);
 
 		b2FixtureDef fixture2;
