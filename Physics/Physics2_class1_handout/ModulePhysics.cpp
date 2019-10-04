@@ -42,15 +42,6 @@ bool ModulePhysics::Start()
 	// TODO 4: Create a a big static circle as "ground"
 	Shape(200, 50, 50, false);
 
-	//GROUND
-	b2BodyDef groundBodyDef2;
-	groundBodyDef2.type = b2_staticBody;
-	groundBodyDef2.position.Set(PIXELS_TO_METERS(50), PIXELS_TO_METERS(150));
-	b2Body* groundBody3 = world->CreateBody(&groundBodyDef2);
-	b2PolygonShape groundBox;
-	groundBox.SetAsBox(PIXELS_TO_METERS(10), PIXELS_TO_METERS(10));
-	groundBody3->CreateFixture(&groundBox, 0.0f);
-
 	return true;
 }
 

@@ -35,18 +35,7 @@ bool ModulePhysics::Start()
 	int y = SCREEN_HEIGHT / 1.5f;
 	int diameter = SCREEN_WIDTH / 2;
 
-	b2BodyDef body;
-	body.type = b2_staticBody;
-	body.position.Set(PIXEL_TO_METERS(x), PIXEL_TO_METERS(y));
-
-	b2Body* b = world->CreateBody(&body);
-
-	b2CircleShape shape;
-	shape.m_radius = PIXEL_TO_METERS(diameter) * 0.5f;
-
-	b2FixtureDef fixture;
-	fixture.shape = &shape;
-	b->CreateFixture(&fixture);
+	Shape(400, 500, 500, false);
 
 	return true;
 }
@@ -344,6 +333,31 @@ update_status ModulePhysics::PostUpdate()
 	return UPDATE_CONTINUE;
 }
 
+void ModulePhysics::Shape(float r, float x, float y, bool d = false)
+{
+	b2BodyDef body;
+	body.position.Set(PIXEL_TO_METERS(x), PIXEL_TO_METERS(y));
+
+	if (d == true)
+		body.type = b2_dynamicBody;
+
+	b2Body* b = world->CreateBody(&body);
+	b2CircleShape shape;
+	shape.m_radius = PIXEL_TO_METERS(r)* 0.5f;
+	shape.m_type = b2Shape::e_circle;
+
+	if (d == true)
+	{
+		b2FixtureDef frixture;
+		frixture.shape = &shape;
+		frixture.density = 1.0f;
+		frixture.friction = 0.3f;
+		b->CreateFixture(&frixture);
+	}
+	else
+		b->CreateFixture(&shape, 0.0f);
+
+}
 
 // Called before quitting
 bool ModulePhysics::CleanUp()
