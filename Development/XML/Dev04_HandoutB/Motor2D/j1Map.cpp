@@ -40,23 +40,33 @@ void j1Map::Draw()
 	while (item_layer != NULL)
 	{
 		id_tileset++;
-		if (id_tileset == idtile) {
+		
+		
 			MapLayer* l = item_layer->data;
+			item_layer = item_layer->next;
+
 			for (int y = 0; y < l->height; y++) {
 
 				for (int x = 0; x < l->width; x++) {
 
 					if (l->tilegid[l->Get(x, y)] != 0) {
+						
+						
 						SDL_Rect rect2;
 						rect2 = tile_id(idtile, l->tilegid[l->Get(x, y)]);
 						coord = GetWorldPos(x, y, rect2.w);
 
 						App->render->Blit(texture, coord.x, coord.y, &rect2);
+
+						LOG("PASA");
+						
 					}
 				}
 			}
-		}
+			
+		
 		item_layer = item_layer->next;
+		
 
 		
 	}
@@ -355,7 +365,6 @@ bool j1Map::LoadLayer(pugi::xml_node& layernode, MapLayer* layer)
 	return ret;
 	   	 
 }
-
 
 
 
