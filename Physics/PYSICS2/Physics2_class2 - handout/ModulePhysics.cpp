@@ -198,13 +198,10 @@ update_status ModulePhysics::PostUpdate()
 		
 	if (App->input->GetKey(SDL_SCANCODE_5) == KEY_DOWN)
 	{
-		// TODO 3: Create a chain shape using those vertices
-		// remember to convert them from pixels to meters!
+		
 		b2BodyDef body3;
 		body3.type = b2_dynamicBody;
-		//body3.position.Set(PIXEL_TO_METERS(App->input->GetMouseX()), PIXEL_TO_METERS(App->input->GetMouseY()));
-		b2Body* b4 = world->CreateBody(&body3);
-
+		
 		int rick_head[66] = {
 			
 			41, 39,
@@ -243,20 +240,21 @@ update_status ModulePhysics::PostUpdate()
 		};
 		
 		int counter = 0;
-		b2Vec2 rick_head[66];
+		b2Vec2 rick_head1[33];
 				
-		for (int i = 0; i < 66; i++) {
+		for (int i = 0; i < 33; i++) {
 
-			rick_head[i].Set(PIXEL_TO_METERS(rick_head[counter]), PIXEL_TO_METERS(rick_head[counter + 1]));
+			rick_head1[i].Set(PIXEL_TO_METERS(rick_head[counter]), PIXEL_TO_METERS(rick_head[counter + 1]));
 			counter += 2;
-			LOG("POINTS %i", rick_head[i]);
+			LOG("POINTS %i", rick_head1[i]);
 		}
 
-		rick_head.position.Set(PIXEL_TO_METERS(App->input->GetMouseX()), PIXEL_TO_METERS(App->input->GetMouseY()));
+		body3.position.Set(PIXEL_TO_METERS(App->input->GetMouseX()), PIXEL_TO_METERS(App->input->GetMouseY()));
 		
-		b2ChainShape chain;
-		chain.CreateLoop(rick_head, 33);
+		b2Body* b4 = world->CreateBody(&body3);
 
+		b2ChainShape chain;
+		chain.CreateLoop(rick_head1, 33);
 		b2FixtureDef fixture2;
 		fixture2.shape = &chain;
 		b4->CreateFixture(&fixture2);
