@@ -203,42 +203,42 @@ update_status ModulePhysics::PostUpdate()
 		b2BodyDef body3;
 		body3.type = b2_dynamicBody;
 		//body3.position.Set(PIXEL_TO_METERS(App->input->GetMouseX()), PIXEL_TO_METERS(App->input->GetMouseY()));
-		//b2Body* b3 = world->CreateBody(&chain2);
+		b2Body* b4 = world->CreateBody(&body3);
 
-		b2Vec2 rick_head[66] = {
-	41, 39,
-	11, 34,
-	28, 63,
-	0, 75,
-	28, 90,
-	8, 103,
-	29, 115,
-	20, 126,
-	39, 126,
-	31, 137,
-	47, 135,
-	55, 146,
-	70, 150,
-	85, 149,
-	94, 140,
-	101, 126,
-	109, 123,
-	103, 117,
-	102, 106,
-	110, 100,
-	107, 94,
-	111, 80,
-	111, 74,
-	118, 65,
-	106, 61,
-	112, 29,
-	95, 39,
-	96, 17,
-	89, 5,
-	81, 17,
-	74, 32,
-	41, -2,
-	41, 35
+		int rick_head[66] = {
+			41, 39,
+			11, 34,
+			28, 63,
+			0, 75,
+			28, 90,
+			8, 103,
+			29, 115,
+			20, 126,
+			39, 126,
+			31, 137,
+			47, 135,
+			55, 146,
+			70, 150,
+			85, 149,
+			94, 140,
+			101, 126,
+			109, 123,
+			103, 117,
+			102, 106,
+			110, 100,
+			107, 94,
+			111, 80,
+			111, 74,
+			118, 65,
+			106, 61,
+			112, 29,
+			95, 39,
+			96, 17,
+			89, 5,
+			81, 17,
+			74, 32,
+			41, -2,
+			41, 35
 		};
 		
 		int counter = 0;
@@ -254,11 +254,11 @@ update_status ModulePhysics::PostUpdate()
 		rick_head.position.Set(PIXEL_TO_METERS(App->input->GetMouseX()), PIXEL_TO_METERS(App->input->GetMouseY()));
 		b2ChainShape chain;
 
-		chain.CreateLoop(points, 33);
+		chain.CreateLoop(rick_head, 33);
 
 		b2FixtureDef fixture2;
 		fixture2.shape = &chain;
-		b3->CreateFixture(&fixture2);
+		b4->CreateFixture(&fixture2);
 
 
 
