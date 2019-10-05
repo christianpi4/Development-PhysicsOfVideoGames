@@ -16,6 +16,8 @@ j1Scene::j1Scene() : j1Module()
 	name.create("scene");
 }
 
+
+//texture = App->tex->Load("maps/tmw_desert_spacing.png");
 // Destructor
 j1Scene::~j1Scene()
 {}
@@ -69,10 +71,7 @@ bool j1Scene::Update(float dt)
 	p2SString title("Map:%dx%d Tiles:%dx%d Tilesets:%d",
 		App->map->data.width, App->map->data.height,
 		App->map->data.tile_width, App->map->data.tile_height,
-		App->map->tilesets.count());
-
-	int x = 0;
-	int y = 0;
+		App->map->data.tilesets.count());
 
 	//p2Point<uint> TilePos = App->map->data.GetTilePos(x, y);
 	//App->input->GetMousePosition(x, y);

@@ -22,7 +22,7 @@ bool j1Map::Awake(pugi::xml_node& config)
 	bool ret = true;
 
 	folder.create(config.child("folder").child_value());
-	idtile = config.child("id").attribute("value").as_int();
+	
 	return ret;
 }
 
@@ -32,42 +32,34 @@ void j1Map::Draw()
 		return;
 
 	// TODO 5: Prepare the loop to iterate all the tiles in a layer
-	uint id_tileset = 0;
-	p2Point<uint> coord;
+	p2List_item<MapLayer*>* item_layer = data.layers.start;
+	uint id_tileset;
 
-	// TODO 5: Prepare the loop to iterate all the tiles in a layer
-	p2List_item<MapLayer*>* item_layer = layers.start;
 	while (item_layer != NULL)
 	{
-		id_tileset++;
-		
-		
 			MapLayer* l = item_layer->data;
 			item_layer = item_layer->next;
 
-			for (int y = 0; y < l->height; y++) {
+			for (int x = 0; x < l->width; x++) {
 
-				for (int x = 0; x < l->width; x++) {
+				for (int y = 0; y < l->height; y++) {
 
-					if (l->tilegid[l->Get(x, y)] != 0) {
+					id_tileset = l->tilegid[l->Get(x, y)];
+
+					if (id_tileset != 0) {
 						
 						
-						SDL_Rect rect2;
-						rect2 = tile_id(idtile, l->tilegid[l->Get(x, y)]);
-						coord = GetWorldPos(x, y, rect2.w);
+						SDL_Texture* texture = data.tilesets.start->data->texture;
+						iPoint position = GetWorldPos(x,y);
+						SDL_Rect* seccion=&data.tilesets.start->data->tile_id(id_tileset);
 
-						App->render->Blit(texture, coord.x, coord.y, &rect2);
+						//texture = App->tex->Load("tmw_desert_spacing.png");
+						App->render->Blit(texture, position.x, position.y, seccion);
 
-						LOG("PASA");
-						
+									
 					}
 				}
 			}
-			
-		
-		item_layer = item_layer->next;
-		
-
 		
 	}
 
@@ -75,6 +67,32 @@ void j1Map::Draw()
 
 }
 
+iPoint j1Map::GetWorldPos(int x, int y) const
+{
+
+	iPoint ret;
+
+	ret.x = x * data.tile_width;
+	ret.y = y * data.tile_height;
+
+	return ret;
+}
+
+
+SDL_Rect TileSet::tile_id(int id) const
+{
+
+	int id_tileset = id - firstgid;
+	SDL_Rect rect;
+		
+		rect.h = tile_height;
+		rect.w = tile_width;
+		rect.x = margin + ((rect.w + spacing)*(id_tileset  % num_tiles_width));
+		rect.y = margin + ((rect.h + spacing)*(id_tileset / num_tiles_width));
+
+
+	return rect;
+}
 
 // Called before quitting
 bool j1Map::CleanUp()
@@ -83,27 +101,27 @@ bool j1Map::CleanUp()
 
 	// Remove all tilesets
 	p2List_item<TileSet*>* item;
-	item = tilesets.start;
+	item = data.tilesets.start;
 
 	while(item != NULL)
 	{
 		RELEASE(item->data);
 		item = item->next;
 	}
-	tilesets.clear();
+	data.tilesets.clear();
 
 	// TODO 2: clean up all layer data
 	// Remove all layers
 
 	p2List_item<MapLayer*>* item2;
-	item2 = layers.start;
+	item2 = data.layers.start;
 
 	while (item2 != NULL)
 	{
 		RELEASE(item2->data);
 		item2 = item2->next;
 	}
-	layers.clear();
+	data.layers.clear();
 
 	// Clean up the pugui tree
 	map_file.reset();
@@ -116,7 +134,6 @@ bool j1Map::Load(const char* file_name)
 {
 	bool ret = true;
 	p2SString tmp("%s%s", folder.GetString(), file_name);
-	texture = App->tex->Load("maps/tmw_desert_spacing.png");
 	pugi::xml_parse_result result = map_file.load_file(tmp.GetString());
 
 	if(result == NULL)
@@ -148,7 +165,7 @@ bool j1Map::Load(const char* file_name)
 			ret = LoadTilesetImage(tileset, set);
 		}
 
-		tilesets.add(set);
+		data.tilesets.add(set);
 	}
 
 	
@@ -165,7 +182,7 @@ bool j1Map::Load(const char* file_name)
 			ret = LoadLayer(layernode, layer);
 		}
 
-		layers.add(layer);
+		data.layers.add(layer);
 	}
 
 
@@ -175,7 +192,7 @@ bool j1Map::Load(const char* file_name)
 		LOG("width: %d height: %d", data.width, data.height);
 		LOG("tile_width: %d tile_height: %d", data.tile_width, data.tile_height);
 
-		p2List_item<TileSet*>* item = tilesets.start;
+		p2List_item<TileSet*>* item = data.tilesets.start;
 		while(item != NULL)
 		{
 			TileSet* s = item->data;
@@ -189,7 +206,7 @@ bool j1Map::Load(const char* file_name)
 		// TODO 4: Add info here about your loaded layers
 		// Adapt this code with your own variables
 		
-		p2List_item<MapLayer*>* item_layers = layers.start;
+		p2List_item<MapLayer*>* item_layers = data.layers.start;
 		while(item_layers != NULL)
 		{
 			MapLayer* l = item_layers->data;
@@ -340,14 +357,12 @@ bool j1Map::LoadLayer(pugi::xml_node& layernode, MapLayer* layer)
 	bool ret = true;
 	int i=0;
 	layer->name.create(layernode.attribute("name").as_string());
-	layer->width = layernode.attribute("width").as_int();
-	layer->height = layernode.attribute("height").as_int();
+	layer->width = layernode.attribute("width").as_uint();
+	layer->height = layernode.attribute("height").as_uint();
 	
-	uint total_nums = layer->height * layer->width;
+	layer->tilegid = new uint[layer->width * layer->height];
 
-	layer->tilegid = new uint[total_nums];
-
-	memset(layer->tilegid, 0, total_nums*sizeof(int));
+	memset(layer->tilegid, 0, layer->width * layer->height);
 
 	pugi::xml_node tilegid;
 
@@ -357,10 +372,10 @@ bool j1Map::LoadLayer(pugi::xml_node& layernode, MapLayer* layer)
 		i++;
 	}
 
-	for (int i = 0; i <= total_nums; i++) {
+	/*for (int i = 0; i <= layer->width * layer->height; i++) {				//Comprovate that all layers id are loaded
 
 		LOG("TileGid= %d", layer->tilegid[i]);
-	}
+	}*/
 	
 	return ret;
 	   	 
@@ -369,31 +384,5 @@ bool j1Map::LoadLayer(pugi::xml_node& layernode, MapLayer* layer)
 
 
 
-inline p2Point<uint> j1Map::GetWorldPos(uint x, uint y, uint map) const
-{
 
-	p2Point<uint> ret;
 
-	ret.x = x * map;
-	ret.y = y * map;
-
-	return ret;
-}
-
-SDL_Rect j1Map::tile_id(uint id, uint id_tileset) const
-{
-	
-	SDL_Rect rect;
-	p2List_item<TileSet*>* item = App->map->tilesets.start;
-
-	while (item->data->firstgid == id) {
-		
-		TileSet* t = item->data;
-		rect.h = t->tile_height;
-		rect.w = t->tile_width;
-		rect.x = t->margin + ((rect.w + t->spacing)*((id_tileset - 1) % t->num_tiles_width));
-		rect.y = t->margin + ((rect.h + t->spacing)*((id_tileset - 1) / t->num_tiles_width));
-	}
-
-	return rect;
-}
