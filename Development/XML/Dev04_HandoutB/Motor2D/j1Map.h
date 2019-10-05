@@ -68,6 +68,19 @@ struct MapData
 	p2List<TileSet*>	tilesets;
 	p2List<MapLayer*>	layers;
 
+	p2Point<uint> GetTilePos(uint wx, uint wy) const
+	{
+		p2Point<uint> ret;
+
+		ret.x = wx / tile_width;
+
+		ret.y = wy / tile_height;
+
+		return ret;
+	}
+
+	
+
 	
 	// TODO 2: Add a list/array of layers to the map!
 };
@@ -123,16 +136,7 @@ private:
 	bool				map_loaded;
 	uint idtile = 0;
 
-	/*p2Point<uint> GetTilePos(uint wx, uint wy) const
-	{
-		p2Point<uint> ret;
-
-		ret.x = wx / tile_width;
-
-		ret.y = wy / tile_height;
-
-		return ret;
-	}*/
+	
 	
 	
 };
