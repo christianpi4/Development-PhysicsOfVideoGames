@@ -28,6 +28,7 @@ public:
 
 	void Shape(float, float, float, bool);
 	void ShapeBox(float, float, float, float, bool);
+	void ShapeChain(int s, float, float, bool);
 	bool Start();
 	update_status PreUpdate();
 	update_status PostUpdate();
@@ -40,3 +41,4 @@ private:
 	bool debug;
 	b2World* world;
 };
+
