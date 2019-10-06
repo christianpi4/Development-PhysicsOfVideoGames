@@ -41,7 +41,38 @@ bool ModuleSceneIntro::CleanUp()
 update_status ModuleSceneIntro::Update()
 {
 	// TODO 5: Move all creation of bodies on 1,2,3 key press here in the scene
-	
+	if (App->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN)
+	{
+		App->physics->Shape(50, App->input->GetMouseX(), App->input->GetMouseY(), true);
+
+	}
+
+	if (App->input->GetKey(SDL_SCANCODE_2) == KEY_DOWN)
+	{
+
+		App->physics->ShapeBox(App->input->GetMouseX(), App->input->GetMouseY(), 15, 15, true);
+
+	}
+
+	if (App->input->GetKey(SDL_SCANCODE_3) == KEY_DOWN)
+	{
+
+		App->physics->ShapeChain(1, App->input->GetMouseX(), App->input->GetMouseY(), true);
+
+	}
+
+	if (App->input->GetKey(SDL_SCANCODE_4) == KEY_DOWN)
+	{
+		App->physics->ShapeChain(2, App->input->GetMouseX(), App->input->GetMouseY(), true);
+
+	}
+
+	if (App->input->GetKey(SDL_SCANCODE_5) == KEY_DOWN)
+	{
+
+		App->physics->ShapeChain(3, App->input->GetMouseX(), App->input->GetMouseY(), true);
+
+	}
 	// TODO 7: Draw all the circles using "circle" texture
 
 	return UPDATE_CONTINUE;
