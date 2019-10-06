@@ -54,42 +54,14 @@ update_status ModulePhysics::PostUpdate()
 	// On space bar press, create a circle on mouse position
 	if(App->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN)
 	{
-		b2BodyDef body;
-		body.type = b2_dynamicBody;
-		float radius = PIXEL_TO_METERS(25);
-		body.position.Set(PIXEL_TO_METERS(App->input->GetMouseX()), PIXEL_TO_METERS(App->input->GetMouseY()));
-
-		b2Body* b = world->CreateBody(&body);
-
-		b2CircleShape shape;
-		shape.m_radius = radius;
-		b2FixtureDef fixture;
-		fixture.shape = &shape;
-
-		b->CreateFixture(&fixture);
+		Shape(50, App->input->GetMouseX(), App->input->GetMouseY(), true);
+		
 	}
 
 	if(App->input->GetKey(SDL_SCANCODE_2) == KEY_DOWN)
 	{
-		// TODO 1: When pressing 2, create a box on the mouse position
-
-		b2BodyDef body;
-		body.type = b2_dynamicBody;
-		float width = PIXEL_TO_METERS(15);
-		float height = PIXEL_TO_METERS(15);
-		body.position.Set(PIXEL_TO_METERS(App->input->GetMouseX()), PIXEL_TO_METERS(App->input->GetMouseY()));
-
-		b2Body* b = world->CreateBody(&body);
-
-		b2PolygonShape rectangle;
-		rectangle.SetAsBox(width, height);
-		b2FixtureDef fixture;
-		// TODO 2: To have the box behave normally, set fixture's density to 1.0f
-		fixture.density = 1.0f;
-		fixture.shape = &rectangle;
-
-		b->CreateFixture(&fixture);
-
+		
+		ShapeBox(App->input->GetMouseX(), App->input->GetMouseY(), 15, 15, true);
 		
 	}
 
@@ -356,6 +328,41 @@ void ModulePhysics::Shape(float r, float x, float y, bool d = false)
 	}
 	else
 		b->CreateFixture(&shape, 0.0f);
+
+}
+
+void ModulePhysics::ShapeBox(float x, float y, float w, float h, bool d = false)
+{
+	// TODO 1: When pressing 2, create a box on the mouse position
+
+	b2BodyDef body2;
+
+	if(d==true){
+	body2.type = b2_dynamicBody;
+	}
+	float width = PIXEL_TO_METERS(w);
+	float height = PIXEL_TO_METERS(h);
+	
+	body2.position.Set(PIXEL_TO_METERS(x), PIXEL_TO_METERS(y));
+	b2Body* b = world->CreateBody(&body2);
+	b2PolygonShape rectangle;
+
+	rectangle.SetAsBox(width, height);
+
+	if (d == true) {
+
+		b2FixtureDef fixture1;
+		// TODO 2: To have the box behave normally, set fixture's density to 1.0f
+		fixture1.density = 1.0f;
+		fixture1.shape = &rectangle;
+		b->CreateFixture(&fixture1);
+	}
+	else {
+		
+		b->CreateFixture(&rectangle, 0.0f);
+	}
+
+	
 
 }
 

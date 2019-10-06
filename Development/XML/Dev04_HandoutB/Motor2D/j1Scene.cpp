@@ -79,6 +79,7 @@ bool j1Scene::Update(float dt)
 		App->map->data.tilesets.count(), TilePos.x, TilePos.y);
 
 	App->win->SetTitle(title.GetString());
+
 	return true;
 }
 
