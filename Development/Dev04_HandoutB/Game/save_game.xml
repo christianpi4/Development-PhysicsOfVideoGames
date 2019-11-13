@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<game_state>
+	<input />
+	<window />
+	<textures />
+	<audio />
+	<map />
+	<scene>
+		<scene name="Map.tmx" />
+	</scene>
+	<player>
+		<position x="100" y="621" />
+	</player>
+	<:anonymous />
+	<renderer>
+		<camera x="0" y="-77" />
+	</renderer>
+</game_state>
