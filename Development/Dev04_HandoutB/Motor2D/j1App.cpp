@@ -222,15 +222,15 @@ void j1App::FinishUpdate()
 	App->win->SetTitle(title);
 
 	// TODO 2: Use SDL_Delay to make sure you get your capped framerate
-	delaytimer.Start();
+	
 	
 	time = (1 * 1000 / framerate) - last_frame_ms;
+	delaytimer.Start();
 
-	if (time > 0)
+	if (last_frame_ms < framerate)
 	{
-
 		SDL_Delay(time);
-		//LOG("We waited for %i milliseconds and got back in %f", time, measure.ReadMs());
+		//LOG("We waited for %i milliseconds and got back in %f", time, delaytimer.ReadMs());
 	}
 
 	// TODO3: Measure accurately the amount of time it SDL_Delay actually waits compared to what was expected

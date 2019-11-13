@@ -688,7 +688,7 @@ void j1Player::OnCollision(Collider* c1, Collider* c2) {	//Check if the Player c
 				App->audio->PlayFx(App->scene->death_FX);	//Sets the Death Audio
 				//pretime = SDL_GetTicks();	//Sets the pretime to death timer
 
-				data_player.position.y = c2->rect.y + c2->rect.h;
+				//data_player.position.y = c2->rect.y + c2->rect.h;
 				current_state = DEATH;	//Sets player to Death state
 
 				data_player.grounded = true;	//Sets that player is touching the floor
