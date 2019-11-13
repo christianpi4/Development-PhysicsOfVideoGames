@@ -1,4 +1,5 @@
 #include <iostream> 
+#include <sstream>
 
 #include "p2Defs.h"
 #include "p2Log.h"
@@ -99,8 +100,9 @@ bool j1App::Awake()
 		app_config = config.child("app");
 		title.create(app_config.child("title").child_value());
 		organization.create(app_config.child("organization").child_value());
-		// TODO 1: Read from config file your framerate cap
-		framerate = config.child("app").attribute("framerate_cap").as_int();
+		
+		//Read from config file your framerate cap
+		framerate = app_config.attribute("framerate_cap").as_int();
 	}
 
 	if(ret == true)
@@ -184,11 +186,11 @@ void j1App::PrepareUpdate()
 	frame_count++;
 	last_sec_frame_count++;
 
-	// TODO 4: Calculate the dt: differential time since last frame
+	//Calculate the dt: differential time since last frame
 	dt = frame_time.ReadSec();
 	//LOG("DelaTime %.2f", dt * 1000);
 	frame_time.Start();
-	ptimer.Start();
+	
 }
 
 // ---------------------------------------------
@@ -220,12 +222,12 @@ void j1App::FinishUpdate()
 	App->win->SetTitle(title);
 
 	// TODO 2: Use SDL_Delay to make sure you get your capped framerate
+	delaytimer.Start();
+	
 	time = (1 * 1000 / framerate) - last_frame_ms;
 
-	if (last_frame_ms < framerate)
+	if (time > 0)
 	{
-
-		measure.Start();
 
 		SDL_Delay(time);
 		//LOG("We waited for %i milliseconds and got back in %f", time, measure.ReadMs());
@@ -271,6 +273,10 @@ bool j1App::DoUpdate()
 		if(pModule->active == false) {
 			continue;
 		}
+
+		// send dt as an argument to all updates
+		// you will need to update module parent class
+		// and all modules that use update
 
 		ret = item->data->Update(dt);
 	}

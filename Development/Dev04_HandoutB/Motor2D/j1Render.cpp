@@ -7,7 +7,7 @@
 #include "j1Map.h"
 #include "j1Scene.h"
 
-#define VSYNC false
+#define VSYNC true
 
 j1Render::j1Render() : j1Module()
 {

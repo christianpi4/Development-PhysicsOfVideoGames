@@ -1,12 +1,12 @@
 <?xml version="1.0"?>
 <config>
-	<app framerate_cap="60">
+	<app framerate_cap="20">
 		<title>NINJA WARRIOR</title>
 		<organization>UPC</organization>
 	</app>
 	
 	<renderer>
-		<vsync value="true" />
+		<vsync value="false" />
 		<cameravelocity camvel="-50" />
 	</renderer>
 	
