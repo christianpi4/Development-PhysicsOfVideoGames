@@ -19,7 +19,7 @@ class j1Player;
 class j1Collider;
 class j1PathFinding;
 class j1FadeToBlack;
-
+class j1Enemy;
 
 class j1App
 {
@@ -94,6 +94,7 @@ public:
 	j1Collider*			collider;
 	j1PathFinding*		pathfinding;
 	j1FadeToBlack*		fade;
+	j1Enemy*			enemy;
 
 private:
 
