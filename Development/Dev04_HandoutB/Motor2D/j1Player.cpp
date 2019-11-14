@@ -377,7 +377,7 @@ void j1Player::CheckState(float dt)
 			if (App->input->GetKey(SDL_SCANCODE_LSHIFT) == KEY_REPEAT) {
 				
 				current_state = RUN;
-				data_player.position.x -= (data_player.velrun*dt*LIMIT_TIMER);
+				data_player.position.x -= (data_player.velrun * dt*LIMIT_TIMER);
 			
 				data_player.player_flip = true;
 

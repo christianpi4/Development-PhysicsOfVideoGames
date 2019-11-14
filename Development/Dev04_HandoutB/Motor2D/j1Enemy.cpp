@@ -178,24 +178,24 @@ bool j1Enemy::Save(pugi::xml_node& node) const {
 void j1Enemy::Pushbacks() {
 
 	//Sets the Idle Animation
-	data_enemy.idle.PushBack({ 0,0,52,75 }, 0.1, 0, 0);
-	data_enemy.idle.PushBack({ 58,0,50,76 }, 0.1, 10, 0);
-	data_enemy.idle.PushBack({ 117,0,50,76 }, 0.2, 10, 0);
-	data_enemy.idle.PushBack({ 176,0,50,76 }, 0.2, 10, 0);
-	data_enemy.idle.PushBack({ 233,0,50,76 }, 0.2, 10, 0);
-	data_enemy.idle.PushBack({ 291,0,50,76 }, 0.2, 10, 0);
-	data_enemy.idle.PushBack({ 348,0,50,76 }, 0.2, 10, 0);
-	data_enemy.idle.PushBack({ 405,0,50,76 }, 0.2, 10, 0);
-	data_enemy.idle.PushBack({ 463,0,50,76 }, 0.2, 10, 0);
-	data_enemy.idle.PushBack({ 521,0,50,76 }, 0.1, 0, 0);
-	data_enemy.idle.PushBack({ 579,0,50,76 }, 0.1, -1, 0);
-	data_enemy.idle.PushBack({ 636,0,50,76 }, 0.1, -6, 0);
-	data_enemy.idle.PushBack({ 693,0,50,76 }, 0.2, -20, 0);
-	data_enemy.idle.PushBack({ 751,0,50,76 }, 0.2, -20, 0);
-	data_enemy.idle.PushBack({ 812,0,50,76 }, 0.2, -20, 0);
-	data_enemy.idle.PushBack({ 870,0,50,76 }, 0.2, -20, 0);
-	data_enemy.idle.PushBack({ 927,0,50,76 }, 0.2, -20, 0);
-	data_enemy.idle.PushBack({ 985,0,50,76 }, 0.2, -20, 0);
+	data_enemy.idle.PushBack({ 0,0,49,75 }, 0.1, 0, 0);
+	data_enemy.idle.PushBack({ 58,0,47,76 }, 0.1, 10, 0);
+	data_enemy.idle.PushBack({ 117,0,47,76 }, 0.2, 10, 0);
+	data_enemy.idle.PushBack({ 176,0,47,76 }, 0.2, 10, 0);
+	data_enemy.idle.PushBack({ 233,0,47,76 }, 0.2, 10, 0);
+	data_enemy.idle.PushBack({ 291,0,47,76 }, 0.2, 10, 0);
+	data_enemy.idle.PushBack({ 348,0,47,76 }, 0.2, 10, 0);
+	data_enemy.idle.PushBack({ 405,0,47,76 }, 0.2, 10, 0);
+	data_enemy.idle.PushBack({ 463,0,47,76 }, 0.2, 10, 0);
+	data_enemy.idle.PushBack({ 521,0,47,76 }, 0.1, 0, 0);
+	data_enemy.idle.PushBack({ 579,0,47,76 }, 0.1, -1, 0);
+	data_enemy.idle.PushBack({ 636,0,47,76 }, 0.1, -6, 0);
+	data_enemy.idle.PushBack({ 693,0,47,76 }, 0.2, -20, 0);
+	data_enemy.idle.PushBack({ 751,0,47,76 }, 0.2, -20, 0);
+	data_enemy.idle.PushBack({ 812,0,47,76 }, 0.2, -20, 0);
+	data_enemy.idle.PushBack({ 870,0,47,76 }, 0.2, -20, 0);
+	data_enemy.idle.PushBack({ 927,0,47,76 }, 0.2, -20, 0);
+	data_enemy.idle.PushBack({ 985,0,47,76 }, 0.2, -20, 0);
 	data_enemy.idle.loop = true;
 
 	/*//Sets the Walk Animation
@@ -226,8 +226,8 @@ void j1Enemy::Pushbacks() {
 	data_player.jump.loop = false;*/
 
 	//Sets the Fall Animation
-	data_enemy.fall.PushBack({ 0,0,52,75 }, 0.05, 0, 0);
-	data_enemy.fall.PushBack({ 0,0,52,75 }, 0.5, 0, 0);
+	data_enemy.fall.PushBack({ 0,0,49,75 }, 0.05, 0, 0);
+	data_enemy.fall.PushBack({ 0,0,49,75 }, 0.5, 0, 0);
 	data_enemy.fall.loop = true;
 
 	/*//Sets the Attack Animation
