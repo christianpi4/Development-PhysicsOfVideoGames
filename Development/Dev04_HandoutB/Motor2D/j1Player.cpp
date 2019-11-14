@@ -298,7 +298,7 @@ void j1Player::CheckState(float dt)
 			//if  "SPACE" is pressed when "D" is pressed, the player jumps forward
 			if (App->input->GetKey(SDL_SCANCODE_SPACE)==KEY_DOWN) {		
 
-				data_player.jumpenergy = (data_player.jumpvel*dt * LIMIT_TIMER);
+				data_player.jumpenergy = (data_player.jumpvel);
 
 				current_state = JUMP_WALK;
 				App->audio->PlayFx(App->scene->jump_FX);
@@ -359,7 +359,7 @@ void j1Player::CheckState(float dt)
 			//if "SPACE" is pressed when "A" is pressed, the player jumps backward
 			if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN) {		
 
-				data_player.jumpenergy = (data_player.jumpvel*dt * LIMIT_TIMER);
+				data_player.jumpenergy = (data_player.jumpvel);
 
 				current_state = JUMP_WALK;
 				LOG("%f", dt);
@@ -404,7 +404,7 @@ void j1Player::CheckState(float dt)
 		//if "SPACE" is pressed the player jumps
 		else if ((App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN) && (data_player.jumpCounter!=0)) {		//counter needs to be !=0, if not cannot do double jump
 			
-				data_player.jumpenergy = (data_player.jumpvel*dt * LIMIT_TIMER);
+				data_player.jumpenergy = (data_player.jumpvel);
 				current_state = JUMP_UP;
 				data_player.player_flip = false;
 				data_player.jumpCounter--;
@@ -480,7 +480,7 @@ void j1Player::State(float dt) {
 
 		if ((data_player.jumpenergy) <= (data_player.gravity)) {								//character will jump up until it do not accomplish this condition 
 			
-			data_player.jumpenergy += 0.5;													// jump up increments 0.5 each time
+			data_player.jumpenergy += 1*dt * LIMIT_TIMER;													// jump up increments 0.5 each time
 			data_player.position.y += (data_player.jumpenergy);		// y position increments 0.5 each time
 
 		}
@@ -513,7 +513,7 @@ void j1Player::State(float dt) {
 
 		if ((data_player.jumpenergy) <= (data_player.gravity)) {									//character will jump up until it do not accomplish this condition 
 			
-			data_player.jumpenergy += 0.5;														// jump up increments 0.5 each time
+			data_player.jumpenergy += 1*dt * LIMIT_TIMER;														// jump up increments 0.5 each time
 			data_player.position.y += (data_player.jumpenergy);		// y position increments 0.5 each time
 
 		}
