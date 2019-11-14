@@ -2,7 +2,7 @@
 #ifndef __j1PLAYER_H__
 #define __j1PLAYER_H__
 
-#define LIMIT_TIMER 50
+#define LIMIT_TIMER 60
 
 #include "PugiXml/src/pugixml.hpp"
 #include "p2List.h"

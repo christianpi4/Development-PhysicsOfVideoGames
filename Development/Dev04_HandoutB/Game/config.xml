@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <config>
-	<app framerate_cap="60">
+	<app framerate_cap="30">
 		<title>NINJA WARRIOR</title>
 		<organization>UPC</organization>
 	</app>
@@ -35,7 +35,7 @@
     <jump_velocity jumpvel="-35" />
     <velocity x="5"/>
     <velrun x="5.25"/>
-    <gravity grav="15" />
+    <gravity grav="20" />
     <colOffset x="11" y="8" />
 	</player>
 	<scene>

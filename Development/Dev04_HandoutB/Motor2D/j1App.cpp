@@ -188,6 +188,8 @@ void j1App::PrepareUpdate()
 
 	//Calculate the dt: differential time since last frame
 	dt = frame_time.ReadSec();
+	LOG("%f", dt);
+
 	//LOG("DelaTime %.2f", dt * 1000);
 	frame_time.Start();
 	
@@ -225,7 +227,7 @@ void j1App::FinishUpdate()
 	delaytimer.Start();
 	time = 1 * 1000 / framerate - last_frame_ms;
 		
-	LOG("TIME= %i", time);
+	//LOG("TIME= %i", time);
 	if (time > 0)
 	{
 		SDL_Delay(1 * 1000 / framerate - last_frame_ms);
