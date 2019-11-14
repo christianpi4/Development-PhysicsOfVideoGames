@@ -16,6 +16,7 @@
 #include "j1Collider.h"
 #include "j1Pathfinding.h"
 #include "j1FadeToBlack.h"
+#include "j1Enemy.h"
 
 
 // Constructor
@@ -37,6 +38,7 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	collider = new j1Collider();
 	pathfinding = new j1PathFinding();
 	fade = new j1FadeToBlack();
+	enemy = new j1Enemy();
 
 
 	// Ordered for awake / Start / Update
@@ -48,9 +50,11 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(map);
 	AddModule(scene);
 	AddModule(player);
+	AddModule(enemy);
 	AddModule(collider);
 	AddModule(pathfinding);
 	AddModule(fade);
+	
 
 
 	// render last to swap buffer
