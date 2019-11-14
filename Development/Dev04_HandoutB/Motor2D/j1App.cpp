@@ -225,7 +225,7 @@ void j1App::FinishUpdate()
 	delaytimer.Start();
 	time = 1 * 1000 / framerate - last_frame_ms;
 		
-	LOG("%i", time);
+	LOG("TIME= %i", time);
 	if (time > 0)
 	{
 		SDL_Delay(1 * 1000 / framerate - last_frame_ms);

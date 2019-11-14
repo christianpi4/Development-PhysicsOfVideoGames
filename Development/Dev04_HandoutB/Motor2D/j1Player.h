@@ -2,7 +2,7 @@
 #ifndef __j1PLAYER_H__
 #define __j1PLAYER_H__
 
-#define DT_CONV 60
+#define LIMIT_TIMER 50
 
 #include "PugiXml/src/pugixml.hpp"
 #include "p2List.h"
@@ -70,7 +70,7 @@ struct PlayerData
 
 	int gravity;
 
-	int velrun;			//velocity while running
+	float velrun;			//velocity while running
 	   
 	Collider* colliders = nullptr;
 	Collider* colliders2 = nullptr;
@@ -93,7 +93,7 @@ public:
 
 	//Called at first
 	bool Start();
-	bool PreUpdate();
+	bool PreUpdate(float dt);
 	bool Update(float dt);
 	bool PostUpdate(float dt);
 

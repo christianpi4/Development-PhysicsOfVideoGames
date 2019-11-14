@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <config>
-	<app framerate_cap="30">
+	<app framerate_cap="60">
 		<title>NINJA WARRIOR</title>
 		<organization>UPC</organization>
 	</app>
@@ -29,13 +29,14 @@
   
 	
 	<player>
-		<folder>textures/</folder>
-		<texture source="rogue_spritesheed.png" />
-		<position x="100" y="500" />
-		<jump_velocity jumpvel="-10" />
-		<velocity x="5"/>
-		<gravity grav="20" />
-		<colOffset x="11" y="8" />
+    <folder>textures/</folder>
+    <texture source="rogue_spritesheed.png" />
+    <position x="100" y="500" />
+    <jump_velocity jumpvel="-35" />
+    <velocity x="5"/>
+    <velrun x="5.25"/>
+    <gravity grav="15" />
+    <colOffset x="11" y="8" />
 	</player>
 	<scene>
 		<map name="Map.tmx" />
