@@ -122,8 +122,8 @@ bool j1Player::Update(float dt) {
 	data_player.position.y += data_player.gravity;
 	data_player.preposition = data_player.position;
 	
-	CheckState();	//Checks the state where is the player
-	State();	//Set the animation relationed with the state that he is
+	CheckState(dt);	//Checks the state where is the player
+	State(dt);	//Set the animation relationed with the state that he is
 	
 	//Player Collider Draw
 	data_player.colliders->SetPos(data_player.position.x, data_player.position.y);	//Sets the Player Collider Position
@@ -276,18 +276,18 @@ void j1Player::Pushbacks() {
 
 }
 
-void j1Player::CheckState()
+void j1Player::CheckState(float dt)
 {
 	
 	if(godmode==false){
 		
-		data_player.velrun = (data_player.v.x)+0.25;
+		data_player.velrun = (data_player.v.x)+ /*0.25 * */DT_CONV * dt;
 		
 		//if "D" is pressed animation walk forward 
 		if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT && data_player.canjump == true) {		
 
 			current_state = WALK;
-			data_player.position.x += data_player.v.x;
+			data_player.position.x += data_player.v.x * DT_CONV * dt;
 			data_player.player_flip = false;
 
 			//if  "SPACE" is pressed when "D" is pressed, the player jumps forward
@@ -297,7 +297,7 @@ void j1Player::CheckState()
 				App->audio->PlayFx(App->scene->jump_FX);
 
 				
-					data_player.jumpenergy = data_player.jumpvel;
+					data_player.jumpenergy = data_player.jumpvel * DT_CONV * dt;
 				
 				//decrease the jump counter
 				data_player.jumpCounter--;					
@@ -313,7 +313,7 @@ void j1Player::CheckState()
 			if (App->input->GetKey(SDL_SCANCODE_LSHIFT) == KEY_REPEAT) {		
 				
 				current_state = RUN;
-				data_player.position.x += data_player.velrun;
+				data_player.position.x += data_player.velrun * DT_CONV * dt;
 				data_player.player_flip = false;
 
 				//if "SPACE" is pressed when "LSHIFT" is pressed, and when "D" is pressed, the player jumps running forward
@@ -344,7 +344,7 @@ void j1Player::CheckState()
 		else if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT && data_player.canjump == true) {		
 
 			current_state = WALK;
-			data_player.position.x -= data_player.v.x;
+			data_player.position.x -= data_player.v.x * DT_CONV * dt;
 			data_player.player_flip = true;
 
 			
@@ -353,7 +353,7 @@ void j1Player::CheckState()
 
 				current_state = JUMP_WALK;
 
-				data_player.jumpenergy = data_player.jumpvel;
+				data_player.jumpenergy = data_player.jumpvel * DT_CONV * dt;
 				
 				data_player.jumpCounter--;
 				App->audio->PlayFx(App->scene->jump_FX);
@@ -367,7 +367,7 @@ void j1Player::CheckState()
 			if (App->input->GetKey(SDL_SCANCODE_LSHIFT) == KEY_REPEAT) {
 				
 				current_state = RUN;
-				data_player.position.x -= data_player.velrun;
+				data_player.position.x -= data_player.velrun * DT_CONV * dt;
 			
 				data_player.player_flip = true;
 
@@ -395,7 +395,7 @@ void j1Player::CheckState()
 			
 				current_state = JUMP_UP;
 				data_player.player_flip = false;
-				data_player.jumpenergy = data_player.jumpvel;
+				data_player.jumpenergy = data_player.jumpvel * DT_CONV * dt;
 				data_player.jumpCounter--;
 				App->audio->PlayFx(App->scene->jump_FX);
 
@@ -425,7 +425,7 @@ void j1Player::CheckState()
 
 }
 
-void j1Player::State() {
+void j1Player::State(float dt) {
 
 	if (current_state == IDLE) {
 		
@@ -453,13 +453,13 @@ void j1Player::State() {
 		//If left = true, jump running backward
 		if (data_player.left == true) {
 			
-			data_player.position.x -= data_player.velrun;
+			data_player.position.x -= data_player.velrun * DT_CONV * dt;
 		}
 
 		//If right = true, jump running forward
 		else if (data_player.right == true) {
 			
-			data_player.position.x += data_player.velrun;
+			data_player.position.x += data_player.velrun * DT_CONV * dt;
 		}
 
 		data_player.canjump = false;
@@ -469,18 +469,18 @@ void j1Player::State() {
 		if (data_player.jumpenergy <= data_player.gravity) {								//character will jump up until it do not accomplish this condition 
 			
 			data_player.jumpenergy += 0.5;													// jump up increments 0.5 each time
-			data_player.position.y = data_player.position.y + data_player.jumpenergy;		// y position increments 0.5 each time
+			data_player.position.y = data_player.position.y + data_player.jumpenergy * DT_CONV * dt;		// y position increments 0.5 each time
 
 		}
 
 		if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
 		{
-			data_player.position.x -= data_player.v.x;
+			data_player.position.x -= data_player.v.x * DT_CONV * dt;
 			data_player.player_flip = true;
 		}
 		if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT)
 		{
-			data_player.position.x += data_player.v.x;
+			data_player.position.x += data_player.v.x * DT_CONV * dt;
 			data_player.player_flip = false;
 		}
 
@@ -502,19 +502,19 @@ void j1Player::State() {
 		if (data_player.jumpenergy <= data_player.gravity) {									//character will jump up until it do not accomplish this condition 
 			
 			data_player.jumpenergy += 0.5;														// jump up increments 0.5 each time
-			data_player.position.y = data_player.position.y + data_player.jumpenergy;			// y position increments 0.5 each time
+			data_player.position.y = data_player.position.y + data_player.jumpenergy * DT_CONV * dt;			// y position increments 0.5 each time
 
 		}
 
 		if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
 		{
-			data_player.position.x -= data_player.v.x;
+			data_player.position.x -= data_player.v.x * DT_CONV * dt;
 			data_player.player_flip = true;
 		}
 		
 		if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT)
 		{
-			data_player.position.x += data_player.v.x;
+			data_player.position.x += data_player.v.x * DT_CONV * dt;
 			data_player.player_flip = false;
 		}
 		
@@ -525,12 +525,12 @@ void j1Player::State() {
 		data_player.current_animation = &data_player.fall;
 		if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
 		{
-			data_player.position.x -= data_player.v.x;
+			data_player.position.x -= data_player.v.x * DT_CONV * dt;
 			data_player.player_flip = true;
 		}
 		if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT)
 		{
-			data_player.position.x += data_player.v.x;
+			data_player.position.x += data_player.v.x * DT_CONV * dt;
 			data_player.player_flip = false;
 		}
 	}

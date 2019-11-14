@@ -2,6 +2,8 @@
 #ifndef __j1PLAYER_H__
 #define __j1PLAYER_H__
 
+#define DT_CONV 60
+
 #include "PugiXml/src/pugixml.hpp"
 #include "p2List.h"
 #include "p2Point.h"
@@ -118,8 +120,8 @@ public:
 	
 	//Puts the camera on player and follows
 	
-	void CheckState();	//Load keys to check states
-	void State();	//Check animations
+	void CheckState(float dt);	//Load keys to check states
+	void State(float dt);	//Check animations
 	void Pushbacks();	//Load the frame animations
 	void Reset();
 	bool pretime(float sec);
