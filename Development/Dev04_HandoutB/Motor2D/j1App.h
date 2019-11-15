@@ -20,6 +20,7 @@ class j1Collider;
 class j1PathFinding;
 class j1FadeToBlack;
 class j1Enemy;
+//class j1Entity;
 
 class j1App
 {
@@ -95,6 +96,7 @@ public:
 	j1PathFinding*		pathfinding;
 	j1FadeToBlack*		fade;
 	j1Enemy*			enemy;
+	//j1Entity*			entity;
 
 private:
 

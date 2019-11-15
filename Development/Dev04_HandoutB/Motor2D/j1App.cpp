@@ -17,6 +17,7 @@
 #include "j1Pathfinding.h"
 #include "j1FadeToBlack.h"
 #include "j1Enemy.h"
+#include "j1Entity.h"
 
 
 // Constructor
@@ -39,6 +40,7 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	pathfinding = new j1PathFinding();
 	fade = new j1FadeToBlack();
 	enemy = new j1Enemy();
+	//entity = new j1Entity();
 
 
 	// Ordered for awake / Start / Update
@@ -54,6 +56,7 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(collider);
 	AddModule(pathfinding);
 	AddModule(fade);
+	//AddModule(entity);
 	
 
 
