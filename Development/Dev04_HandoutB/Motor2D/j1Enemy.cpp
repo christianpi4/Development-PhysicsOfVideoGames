@@ -124,6 +124,8 @@ bool j1Enemy::Update(float dt) {
 		
 	return true;
 
+	data_enemy.current_animation = &data_enemy.idle;
+
 }
 
 bool j1Enemy::PostUpdate(float dt) {
@@ -178,87 +180,98 @@ bool j1Enemy::Save(pugi::xml_node& node) const {
 void j1Enemy::Pushbacks() {
 
 	//Sets the Idle Animation
-	data_enemy.idle.PushBack({ 0,0,49,75 }, 0.1, 0, 0);
-	data_enemy.idle.PushBack({ 58,0,47,76 }, 0.1, 10, 0);
-	data_enemy.idle.PushBack({ 117,0,47,76 }, 0.2, 10, 0);
-	data_enemy.idle.PushBack({ 176,0,47,76 }, 0.2, 10, 0);
-	data_enemy.idle.PushBack({ 233,0,47,76 }, 0.2, 10, 0);
-	data_enemy.idle.PushBack({ 291,0,47,76 }, 0.2, 10, 0);
-	data_enemy.idle.PushBack({ 348,0,47,76 }, 0.2, 10, 0);
-	data_enemy.idle.PushBack({ 405,0,47,76 }, 0.2, 10, 0);
-	data_enemy.idle.PushBack({ 463,0,47,76 }, 0.2, 10, 0);
-	data_enemy.idle.PushBack({ 521,0,47,76 }, 0.1, 0, 0);
-	data_enemy.idle.PushBack({ 579,0,47,76 }, 0.1, -1, 0);
-	data_enemy.idle.PushBack({ 636,0,47,76 }, 0.1, -6, 0);
-	data_enemy.idle.PushBack({ 693,0,47,76 }, 0.2, -20, 0);
-	data_enemy.idle.PushBack({ 751,0,47,76 }, 0.2, -20, 0);
-	data_enemy.idle.PushBack({ 812,0,47,76 }, 0.2, -20, 0);
-	data_enemy.idle.PushBack({ 870,0,47,76 }, 0.2, -20, 0);
-	data_enemy.idle.PushBack({ 927,0,47,76 }, 0.2, -20, 0);
-	data_enemy.idle.PushBack({ 985,0,47,76 }, 0.2, -20, 0);
+	data_enemy.idle.PushBack({ 0,0,43,63 }, 0.4, 0, 0);
+	data_enemy.idle.PushBack({ 46,0,41,64 }, 0.4, -2, 0);
+	data_enemy.idle.PushBack({ 92,0,41,63 }, 0.4, -2, 0);
+	data_enemy.idle.PushBack({ 136,0,45,64 }, 0.4, -4, 0);
+	data_enemy.idle.PushBack({ 182,0,42,63 }, 0.4, -4, 0);
+	data_enemy.idle.PushBack({ 228,0,42,63 }, 0.4, -2, 0);
+	data_enemy.idle.PushBack({ 274,0,42,62 }, 0.4, -4, 0);
+	data_enemy.idle.PushBack({ 318,0,42,64 }, 0.4, -4, 0);
+	data_enemy.idle.PushBack({ 365,0,42,64 }, 0.4, -4, 0);
+	data_enemy.idle.PushBack({ 410,0,44,63 }, 0.4, -2, 0);
+	data_enemy.idle.PushBack({ 456,0,43,63 }, 0.4, -2, 0);
+	data_enemy.idle.PushBack({ 502,0,41,63 }, 0.4, -2, 0);
+	data_enemy.idle.PushBack({ 546,0,43,63 }, 0.4, -4, 0);
+	data_enemy.idle.PushBack({ 593,0,41,63 }, 0.4, -4, 0);
+	data_enemy.idle.PushBack({ 640,0,44,63 }, 0.4, -4, 0);
+	data_enemy.idle.PushBack({ 687,0,42,63 }, 0.4, -4, 0);
+	data_enemy.idle.PushBack({ 731,0,44,63 }, 0.4, -4, 0);
+	data_enemy.idle.PushBack({ 777,0,43,63 }, 0.4, -4, 0);
 	data_enemy.idle.loop = true;
 
-	/*//Sets the Walk Animation
-	data_player.walk.PushBack({ 7,4,42,49 }, 0.2, 0, 0);
-	data_player.walk.PushBack({ 65,4,41,49 }, 0.2, 0, 0);
-	data_player.walk.PushBack({ 131,3,38,50 }, 0.2, 0, 0);
-	data_player.walk.PushBack({ 201,3,36,51 }, 0.2, 0, 0);
-	data_player.walk.PushBack({ 259,5,38,48 }, 0.2, 0, 0);
-	data_player.walk.PushBack({ 317,4,44,50 }, 0.2, 0, 0);
-	data_player.walk.loop = true;*/
+	//Sets the Walk Animation
+	data_enemy.walk.PushBack({ 0,76,43,63 }, 0.4, 0, 0);
+	data_enemy.walk.PushBack({ 42,76,43,63 }, 0.4, 0, 0);
+	data_enemy.walk.PushBack({ 88,76,43,64 }, 0.4, 0, 0);
+	data_enemy.walk.PushBack({ 132,76,43,64 }, 0.4, 0, 0);
+	data_enemy.walk.PushBack({ 178,76,42,63 }, 0.4, 0, 0);
+	data_enemy.walk.PushBack({ 221,76,45,64 }, 0.4, 0, 0);
+	data_enemy.walk.PushBack({ 267,76,44,62 }, 0.4, 0, 0);
+	data_enemy.walk.PushBack({ 312,76,44,63 }, 0.4, 0, 0);
+	data_enemy.walk.PushBack({ 357,76,44,63 }, 0.4, 0, 0);
+	data_enemy.walk.PushBack({ 403,76,43,63 }, 0.4, 0, 0);
+	data_enemy.walk.PushBack({ 447,76,43,64 }, 0.4, 0, 0);
+	data_enemy.walk.PushBack({ 492,76,43,64 }, 0.4, 0, 0);
+	data_enemy.walk.PushBack({ 537,76,43,64 }, 0.4, 0, 0);
+	data_enemy.walk.PushBack({ 582,76,41,64 }, 0.4, 0, 0);
+	data_enemy.walk.PushBack({ 626,76,44,64 }, 0.4, 0, 0);
+	data_enemy.walk.PushBack({ 672,76,43,64 }, 0.4, 0, 0);
+	data_enemy.walk.PushBack({ 719,76,42,64 }, 0.4, 0, 0);
+	data_enemy.walk.PushBack({ 764,76,42,64 }, 0.4, 0, 0);
+	data_enemy.walk.PushBack({ 809,76,43,63 }, 0.4, 0, 0);
+	data_enemy.walk.PushBack({ 853,76,44,62 }, 0.4, 0, 0);
+	data_enemy.walk.PushBack({ 899,76,43,62 }, 0.4, 0, 0);
+	data_enemy.walk.PushBack({ 943,76,44,63 }, 0.4, 0, 0);
+	data_enemy.walk.PushBack({ 988,76,44,64 }, 0.4, 0, 0);
+	data_enemy.walk.PushBack({ 1033,76,45,64 }, 0.4, 0, 0);
+	data_enemy.walk.loop = true;
 
-	/*//Sets the Run Animation
-	data_player.walk2.PushBack({ 7,4,42,49 }, 0.4, 0, 0);
-	data_player.walk2.PushBack({ 65,4,41,49 }, 0.4, 0, 0);
-	data_player.walk2.PushBack({ 131,3,38,50 }, 0.4, 0, 0);
-	data_player.walk2.PushBack({ 201,3,36,51 }, 0.4, 0, 0);
-	data_player.walk2.PushBack({ 259,5,38,48 }, 0.4, 0, 0);
-	data_player.walk2.PushBack({ 317,4,44,50 }, 0.4, 0, 0);
-	data_player.walk2.loop = true;*/
+	//Sets the Attack Animation
+	data_enemy.attack.PushBack({ 0,152,44,63 }, 0.1, 0, 0);
+	data_enemy.attack.PushBack({ 46,152,45,63 }, 0.1, 0, 0);
+	data_enemy.attack.PushBack({ 95,152,69,65 }, 0.1, 0, 0);
+	data_enemy.attack.PushBack({ 168,152,67,66 }, 0.1, 0, 0);
+	data_enemy.attack.PushBack({ 238,152,69,67 }, 0.1, 0, 0);
+	data_enemy.attack.PushBack({ 311,152,63,65 }, 0.1, 0, 0);
+	data_enemy.attack.PushBack({ 382,152,66,64 }, 0.1, 0, 0);
+	data_enemy.attack.PushBack({ 453,152,67,64 }, 0.1, 0, 0);
+	data_enemy.attack.PushBack({ 522,152,64,66 }, 0.1, 0, 0);
+	data_enemy.attack.PushBack({ 593,152,64,65 }, 0.1, 0, 0);
+	data_enemy.attack.PushBack({ 662,152,61,65 }, 0.1, 0, 0);
+	data_enemy.attack.PushBack({ 729,152,64,64 }, 0.1, 0, 0);
+	data_enemy.attack.loop = false;
 
-	/*//Sets the Jump Animation
-	data_player.jump.PushBack({ 7,128,52,43 }, 0.6, 0, 0);
-	data_player.jump.PushBack({ 81,114,47,57 }, 0.3, 0, 0);
-	data_player.jump.PushBack({ 155,113,42,58 }, 0.3, 0, 0);
-	data_player.jump.PushBack({ 221,118,52,53 }, 0.2, 0, 0);
-	data_player.jump.PushBack({ 285,116,53,55 }, 0.15, 0, 0);
-	data_player.jump.PushBack({ 348,119,56,52 }, 0.05, 0, 0);
-	data_player.jump.loop = false;*/
-
-	//Sets the Fall Animation
-	data_enemy.fall.PushBack({ 0,0,49,75 }, 0.05, 0, 0);
-	data_enemy.fall.PushBack({ 0,0,49,75 }, 0.5, 0, 0);
-	data_enemy.fall.loop = true;
-
-	/*//Sets the Attack Animation
-	data_player.idle_attack.PushBack({ 7,759,58,53 }, 0.1, 0, 0);
-	data_player.idle_attack.PushBack({ 70,758,60,54 }, 0.1, 0, 0);
-	data_player.idle_attack.PushBack({ 130,763,61,50 }, 0.1, 0, 0);
-	data_player.idle_attack.PushBack({ 201,763,59,51 }, 0.1, 0, 0);
-	data_player.idle_attack.PushBack({ 270,758,56,54 }, 0.1, 0, 0);
-	data_player.idle_attack.PushBack({ 333,757,39,54 }, 0.1, 0, 0);
-	data_player.idle_attack.PushBack({ 397,759,38,53 }, 0.1, 0, 0);
-	data_player.idle_attack.loop = false;*/
-
-	/*//Sets the Death Animation
-	data_player.death.PushBack({ 8,464,48,55 }, 0.2, 0, 0);
-	data_player.death.PushBack({ 72,456,62,63 }, 0.2, 0, 0);
-	data_player.death.PushBack({ 150,454,69,65 }, 0.2, 0, 0);
-	data_player.death.PushBack({ 257,464,82,56 }, 0.2, 0, 0);
-	data_player.death.PushBack({ 367,447,83,72 }, 0.2, 0, 0);
-	data_player.death.PushBack({ 488,447,84,73 }, 0.2, 0, 0);
-	data_player.death.PushBack({ 609,457,94,62 }, 0.2, 0, 0);
-	data_player.death.PushBack({ 734,455,113,65 }, 0.2, 0, 0);
-	data_player.death.PushBack({ 894,445,127,74 }, 0.2, 0, 0);
-	data_player.death.PushBack({ 1054,433,116,87 }, 0.2, 0, 0);
-	data_player.death.loop = false;*/
+	//Sets the Death Animation
+	data_enemy.hurt.PushBack({ 0,228,42,64 }, 0.2, 0, 0);
+	data_enemy.hurt.PushBack({ 47,228,44,65 }, 0.2, 0, 0);
+	data_enemy.hurt.PushBack({ 97,228,44,66 }, 0.2, 0, 0);
+	data_enemy.hurt.PushBack({ 147,228,45,64 }, 0.2, 0, 0);
+	data_enemy.hurt.PushBack({ 367,228,83,72 }, 0.2, 0, 0);
+	data_enemy.hurt.PushBack({ 488,228,84,73 }, 0.2, 0, 0);
+	data_enemy.hurt.PushBack({ 609,228,94,62 }, 0.2, 0, 0);
+	data_enemy.hurt.PushBack({ 734,228,113,65 }, 0.2, 0, 0);
+	data_enemy.hurt.PushBack({ 894,228,127,74 }, 0.2, 0, 0);
+	data_enemy.hurt.PushBack({ 1054,228,116,87 }, 0.2, 0, 0);
+	data_enemy.hurt.loop = false;
 
 }
 
 void j1Enemy::CheckState(float dt)
 {
-	
-	
+	if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT|| App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) {
+		data_enemy.current_animation = &data_enemy.walk;
+	}
+	if (App->input->GetKey(SDL_SCANCODE_X) == KEY_REPEAT) {
+		data_enemy.current_animation = &data_enemy.attack;
+		data_enemy.attack.Reset();
+	}
+	if (App->input->GetKey(SDL_SCANCODE_V) == KEY_REPEAT) {
+		data_enemy.current_animation = &data_enemy.death;
+	}
+	if (App->input->GetKey(SDL_SCANCODE_R) == KEY_REPEAT) {
+		data_enemy.current_animation = &data_enemy.hurt;
+	}
 
 }
 
@@ -267,16 +280,16 @@ void j1Enemy::State(float dt) {
 	if (current_state == IDLE2) {
 		
 		data_enemy.current_animation = &data_enemy.idle;
-		data_enemy.jump.Reset();
-		data_enemy.fall.Reset();
+		//data_enemy.jump.Reset();
+		//data_enemy.fall.Reset();
 		
 	}
 
 	if (current_state == WALK2) {
 
 		data_enemy.current_animation = &data_enemy.walk;
-		data_enemy.jump.Reset();
-		data_enemy.fall.Reset();
+		///data_enemy.jump.Reset();
+		//data_enemy.fall.Reset();
 		
 	}
 	
@@ -284,7 +297,7 @@ void j1Enemy::State(float dt) {
 
 		data_enemy.canjump = false;
 		data_enemy.injump = true;
-		data_enemy.current_animation = &data_enemy.jump;
+		//data_enemy.current_animation = &data_enemy.jump;
 
 		if (data_enemy.jumpenergy <= data_enemy.gravity) {									//character will jump up until it do not accomplish this condition 
 			
@@ -298,7 +311,7 @@ void j1Enemy::State(float dt) {
 	
 	if (current_state == JUMP_FALL2) {
 
-		data_enemy.current_animation = &data_enemy.fall;
+		/*data_enemy.current_animation = &data_enemy.fall;
 		if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
 		{
 			data_enemy.position.x -= data_enemy.v.x*(dt * LIMIT_TIMER);
@@ -309,7 +322,7 @@ void j1Enemy::State(float dt) {
 			data_enemy.position.x += data_enemy.v.x*(dt * LIMIT_TIMER);
 			data_enemy.player_flip = false;
 			
-		}
+		}*/
 	}
 
 	if (current_state == DEATH2) {	
@@ -374,7 +387,7 @@ void j1Enemy::OnCollision(Collider* c1, Collider* c2) {	//Check if the Player co
 				data_enemy.canjump = true;		//Sets tha player can jump
 
 				if (data_enemy.injump == true) {
-					data_enemy.jump.Reset();
+					//data_enemy.jump.Reset();
 				}
 				if (data_enemy.grounded == true) {
 					data_enemy.jumpCounter = 2;
@@ -493,10 +506,10 @@ void j1Enemy::OnCollision(Collider* c1, Collider* c2) {	//Check if the Player co
 void j1Enemy::Reset() {	//Reset All Player Animations
 
 	data_enemy.death.Reset();
-	data_enemy.jump.Reset();
+	//data_enemy.jump.Reset();
 	data_enemy.walk.Reset();
 	data_enemy.idle.Reset();
-	data_enemy.fall.Reset();
+	//data_enemy.fall.Reset();
 	die = false;
 }
 

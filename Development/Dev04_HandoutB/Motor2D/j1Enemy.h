@@ -33,9 +33,9 @@ struct EnemyData
 	Animation*		current_animation;
 	Animation		idle;
 	Animation		walk;
-	Animation		jump;
-	Animation		fall;
+	Animation		hurt;
 	Animation		death;
+	Animation		attack;
 
 	
 	bool			grounded = false;
