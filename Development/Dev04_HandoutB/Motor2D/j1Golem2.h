@@ -1,6 +1,5 @@
-#pragma once
-#ifndef __j1ENEMY_H__
-#define __j1ENEMY_H__
+#ifndef __j1GOLEM2_H__
+#define __j1GOLEM2_H__
 
 #define LIMIT_TIMER 50
 
@@ -13,21 +12,16 @@
 struct MapObject;
 struct Collider;
 
-enum states_enemy {
-	IDLE2,
-	WALK2,
-	RUN2,
-	JUMP_UP2,
-	JUMP_FALL2,
-	JUMP_WALK2,
-	JUMP_RUN2,
-	DOUBLE_JUMP2,
-	IDLE_ATTACK2,
-	DEATH2,
-	NONE2
+enum states_golem2 {
+	IDLE3,
+	WALK3,
+	HURT3,
+	ATTACK3,
+	DEATH3,
+	NONE3
 };
 
-struct EnemyData
+struct Golem2Data
 {
 
 	Animation*		current_animation;
@@ -36,11 +30,12 @@ struct EnemyData
 	Animation		hurt;
 	Animation		death;
 	Animation		attack;
-	
+
+
 	bool			grounded = false;
 	bool			platformdrop;
 	bool			platformdrop2;
-	bool			move=false;
+	bool			move = false;
 
 	int jumpCounter = 2;
 
@@ -52,20 +47,20 @@ struct EnemyData
 	SDL_Rect		col;
 	iPoint			colOffset;
 	SDL_Texture*	Tex_Player;
-	
-	bool injump=false;	//Says that the player is jumping or not
+
+	bool injump = false;	//Says that the player is jumping or not
 	bool canjump = false;  //Says the player can jump or not
 	int jumpvel;		//Jump velocity only in y
 	int jumpenergy;		//energy while is jumping
-	bool left=false;	//If left = true, jump running backward
-	bool right=false;	//If right = true, jump running forward
+	bool left = false;	//If left = true, jump running backward
+	bool right = false;	//If right = true, jump running forward
 	bool player_flip;
 	bool TimeAttack = false;
 
 	int gravity;
 
 	float velrun;			//velocity while running
-	   
+
 	Collider* colliders = nullptr;
 	Collider* colliders2 = nullptr;
 	bool showcolliders = false;
@@ -75,15 +70,15 @@ struct EnemyData
 };
 
 // ----------------------------------------------------
-class j1Enemy : public j1Module
+class j1Golem2 : public j1Module
 {
 public:
 
 	//Constructor
-	j1Enemy();
+	j1Golem2();
 
 	// Destructor
-	virtual ~j1Enemy();
+	virtual ~j1Golem2();
 
 	//Called at first
 	bool Start();
@@ -92,13 +87,13 @@ public:
 	bool PostUpdate(float dt);
 
 	// Called before render is available
-	
+
 	bool Awake(pugi::xml_node& conf);
 
-	
+
 	// Called each loop iteration
-	
-	void DrawEnemy();
+
+	void DrawGolem2();
 
 	bool Load(pugi::xml_node&);
 	bool Save(pugi::xml_node&) const;
@@ -108,12 +103,12 @@ public:
 
 	//Called to start the player at initial pos
 	//void Restart();
-	
+
 	//Change the sound depending the animation
-	
-	
+
+
 	//Puts the camera on player and follows
-	
+
 	void CheckState(float dt);	//Load keys to check states
 	void State(float dt);	//Check animations
 	void Pushbacks();	//Load the frame animations
@@ -125,19 +120,19 @@ public:
 
 private:
 
-	
+
 public:
 
-	EnemyData			data_enemy;
+	Golem2Data			data_golem2;
 	int globaltime;
-	int pretimer=0;
+	int pretimer = 0;
 	bool die = false;
 	bool godmode = false;
 
 private:
 
-	
-	states_enemy		current_state;
+
+	states_golem2		current_state;
 	p2SString			folder;
 	p2SString			texture;
 
@@ -146,4 +141,4 @@ private:
 
 
 
-#endif // __j1PLAYER_H__
+#endif // __j1GOLEM2_H__

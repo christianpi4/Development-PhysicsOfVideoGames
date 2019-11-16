@@ -80,6 +80,7 @@
     <ClCompile Include="j1Enemy.cpp" />
     <ClCompile Include="j1Entity.cpp" />
     <ClCompile Include="j1FadeToBlack.cpp" />
+    <ClCompile Include="j1Golem2.cpp" />
     <ClCompile Include="j1Main.cpp" />
     <ClCompile Include="j1App.cpp" />
     <ClCompile Include="j1Audio.cpp" />
@@ -101,6 +102,7 @@
     <ClInclude Include="j1Enemy.h" />
     <ClInclude Include="j1Entity.h" />
     <ClInclude Include="j1FadeToBlack.h" />
+    <ClInclude Include="j1Golem2.h" />
     <ClInclude Include="j1Map.h" />
     <ClInclude Include="j1Pathfinding.h" />
     <ClInclude Include="j1PerfTimer.h" />

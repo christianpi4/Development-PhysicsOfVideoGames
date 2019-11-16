@@ -228,32 +228,52 @@ void j1Enemy::Pushbacks() {
 	data_enemy.walk.loop = true;
 
 	//Sets the Attack Animation
-	data_enemy.attack.PushBack({ 0,152,44,63 }, 0.1, 0, 0);
-	data_enemy.attack.PushBack({ 46,152,45,63 }, 0.1, 0, 0);
-	data_enemy.attack.PushBack({ 95,152,69,65 }, 0.1, 0, 0);
-	data_enemy.attack.PushBack({ 168,152,67,66 }, 0.1, 0, 0);
-	data_enemy.attack.PushBack({ 238,152,69,67 }, 0.1, 0, 0);
-	data_enemy.attack.PushBack({ 311,152,63,65 }, 0.1, 0, 0);
-	data_enemy.attack.PushBack({ 382,152,66,64 }, 0.1, 0, 0);
-	data_enemy.attack.PushBack({ 453,152,67,64 }, 0.1, 0, 0);
-	data_enemy.attack.PushBack({ 522,152,64,66 }, 0.1, 0, 0);
-	data_enemy.attack.PushBack({ 593,152,64,65 }, 0.1, 0, 0);
-	data_enemy.attack.PushBack({ 662,152,61,65 }, 0.1, 0, 0);
-	data_enemy.attack.PushBack({ 729,152,64,64 }, 0.1, 0, 0);
+	data_enemy.attack.PushBack({ 0,152,44,63 }, 0.3, 0, 0);
+	data_enemy.attack.PushBack({ 46,152,45,63 }, 0.3, 0, 0);
+	data_enemy.attack.PushBack({ 95,152,69,65 }, 0.3, 0, 0);
+	data_enemy.attack.PushBack({ 168,152,67,66 }, 0.3, 0, 0);
+	data_enemy.attack.PushBack({ 238,152,69,67 }, 0.3, 0, 0);
+	data_enemy.attack.PushBack({ 311,152,63,65 }, 0.3, 0, 0);
+	data_enemy.attack.PushBack({ 382,152,66,64 }, 0.3, 0, 0);
+	data_enemy.attack.PushBack({ 453,152,67,64 }, 0.3, 0, 0);
+	data_enemy.attack.PushBack({ 522,152,64,66 }, 0.3, 0, 0);
+	data_enemy.attack.PushBack({ 593,152,64,65 }, 0.3, 0, 0);
+	data_enemy.attack.PushBack({ 662,152,61,65 }, 0.3, 0, 0);
+	data_enemy.attack.PushBack({ 729,152,64,64 }, 0.3, 0, 0);
 	data_enemy.attack.loop = false;
 
-	//Sets the Death Animation
-	data_enemy.hurt.PushBack({ 0,228,42,64 }, 0.2, 0, 0);
-	data_enemy.hurt.PushBack({ 47,228,44,65 }, 0.2, 0, 0);
-	data_enemy.hurt.PushBack({ 97,228,44,66 }, 0.2, 0, 0);
-	data_enemy.hurt.PushBack({ 147,228,45,64 }, 0.2, 0, 0);
-	data_enemy.hurt.PushBack({ 367,228,83,72 }, 0.2, 0, 0);
-	data_enemy.hurt.PushBack({ 488,228,84,73 }, 0.2, 0, 0);
-	data_enemy.hurt.PushBack({ 609,228,94,62 }, 0.2, 0, 0);
-	data_enemy.hurt.PushBack({ 734,228,113,65 }, 0.2, 0, 0);
-	data_enemy.hurt.PushBack({ 894,228,127,74 }, 0.2, 0, 0);
-	data_enemy.hurt.PushBack({ 1054,228,116,87 }, 0.2, 0, 0);
+	//Sets the Hurt Animation
+	data_enemy.hurt.PushBack({ 0,228,42,64 }, 0.3, 0, 0);
+	data_enemy.hurt.PushBack({ 47,228,44,65 }, 0.3, 0, 0);
+	data_enemy.hurt.PushBack({ 97,228,44,66 }, 0.3, 0, 0);
+	data_enemy.hurt.PushBack({ 147,228,45,64 }, 0.3, 0, 0);
+	data_enemy.hurt.PushBack({ 196,228,52,63 }, 0.3, 0, 0);
+	data_enemy.hurt.PushBack({ 253,228,55,61 }, 0.3, 0, 0);
+	data_enemy.hurt.PushBack({ 315,228,52,61 }, 0.3, 0, 0);
+	data_enemy.hurt.PushBack({ 373,228,50,61 }, 0.3, 0, 0);
+	data_enemy.hurt.PushBack({ 430,228,47,62 }, 0.3, 0, 0);
+	data_enemy.hurt.PushBack({ 484,228,45,62 }, 0.3, 0, 0);
+	data_enemy.hurt.PushBack({ 535,228,44,61 }, 0.3, 0, 0);
+	data_enemy.hurt.PushBack({ 585,228,43,62 }, 0.3, 0, 0);
 	data_enemy.hurt.loop = false;
+
+	//Sets the Death Animation
+	data_enemy.death.PushBack({ 0,305,42,64 }, 0.3, 0, 0);
+	data_enemy.death.PushBack({ 47,305,44,65 }, 0.3, 0, 1);
+	data_enemy.death.PushBack({ 102,305,43,65 }, 0.3, 0, 2);
+	data_enemy.death.PushBack({ 155,305,43,65 }, 0.3, 0, 4);
+	data_enemy.death.PushBack({ 207,305,44,64 }, 0.3, 0, 8);
+	data_enemy.death.PushBack({ 256,305,50,60 }, 0.3, 0, 10);
+	data_enemy.death.PushBack({ 313,305,59,56 }, 0.3, 0, 15);
+	data_enemy.death.PushBack({ 381,305,50,61 }, 0.3, 0, 20);
+	data_enemy.death.PushBack({ 451,305,64,46 }, 0.3, 0, 20);
+	data_enemy.death.PushBack({ 525,305,66,42 }, 0.3, 0, 20);
+	data_enemy.death.PushBack({ 601,305,66,42 }, 0.3, 0, 20);
+	data_enemy.death.PushBack({ 673,305,65,41 }, 0.3, 0, 20);
+	data_enemy.death.PushBack({ 749,305,64,41 }, 0.3, 0, 20);
+
+	data_enemy.death.loop = false;
+
 
 }
 
@@ -268,9 +288,13 @@ void j1Enemy::CheckState(float dt)
 	}
 	if (App->input->GetKey(SDL_SCANCODE_V) == KEY_REPEAT) {
 		data_enemy.current_animation = &data_enemy.death;
+		data_enemy.death.Reset();
+
 	}
 	if (App->input->GetKey(SDL_SCANCODE_R) == KEY_REPEAT) {
 		data_enemy.current_animation = &data_enemy.hurt;
+		data_enemy.hurt.Reset();
+
 	}
 
 }

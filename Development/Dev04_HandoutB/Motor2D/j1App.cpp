@@ -17,6 +17,7 @@
 #include "j1Pathfinding.h"
 #include "j1FadeToBlack.h"
 #include "j1Enemy.h"
+#include "j1Golem2.h"
 #include "j1Entity.h"
 
 
@@ -40,6 +41,8 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	pathfinding = new j1PathFinding();
 	fade = new j1FadeToBlack();
 	enemy = new j1Enemy();
+	golem2 = new j1Golem2();
+
 	//entity = new j1Entity();
 
 
@@ -53,6 +56,7 @@ j1App::j1App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(scene);
 	AddModule(player);
 	AddModule(enemy);
+	AddModule(golem2);
 	AddModule(collider);
 	AddModule(pathfinding);
 	AddModule(fade);
@@ -109,7 +113,12 @@ bool j1App::Awake()
 		organization.create(app_config.child("organization").child_value());
 		
 		//Read from config file your framerate cap
-		framerate = app_config.attribute("framerate_cap").as_int();
+		int cap = app_config.attribute("framerate_cap").as_int(-1);
+
+		if (cap > 0)
+		{
+			framerate = 1000 / cap;
+		}
 	}
 
 	if(ret == true)
@@ -143,7 +152,7 @@ bool j1App::Start()
 		ret = item->data->Start();
 		item = item->next;
 	}
-	startup_time.Start();
+	//startup_time.Start();
 
 	PERF_PEEK(ptimer);
 
@@ -199,7 +208,7 @@ void j1App::PrepareUpdate()
 
 	//LOG("DelaTime %.2f", dt * 1000);
 	frame_time.Start();
-	
+	ptimer.Start();
 }
 
 // ---------------------------------------------
@@ -231,14 +240,15 @@ void j1App::FinishUpdate()
 	App->win->SetTitle(title);
 
 	// TODO 2: Use SDL_Delay to make sure you get your capped framerate
-	delaytimer.Start();
-	time = 1 * 1000 / framerate - last_frame_ms;
-		
-	//LOG("TIME= %i", time);
-	if (time > 0)
+	if (framerate > 0 && last_frame_ms < framerate)
 	{
-		SDL_Delay(1 * 1000 / framerate - last_frame_ms);
-		//LOG("We waited for %i milliseconds and got back in %f", time, delaytimer.ReadMs());
+		//uint32 delay = 1000 / framerate - ptimer.ReadMs();
+		//SDL_Delay(delay);
+		//float true_delay = delay - ptimer.ReadMs();
+		//LOG("We wanted to delay: %i. We had to wait: %f", delay, true_delay);
+		j1PerfTimer t;
+		SDL_Delay(framerate - last_frame_ms);
+		//LOG("We waited for %d milliseconds and got back in %f", framerate - last_frame_ms, t.ReadMs());
 	}
 
 	// TODO3: Measure accurately the amount of time it SDL_Delay actually waits compared to what was expected
