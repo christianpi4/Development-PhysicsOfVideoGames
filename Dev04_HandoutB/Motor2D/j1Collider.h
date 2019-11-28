@@ -51,12 +51,6 @@ public:
 	j1Collider();
 	~j1Collider();
 
-	// Called before render is available
-	bool Awake();
-
-	// Called before the first frame
-	bool Start();
-
 	// Called before all Updates
 	bool PreUpdate(float dt);
 

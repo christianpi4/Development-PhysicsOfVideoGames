@@ -61,10 +61,10 @@ bool j1EntityManager::Update(float dt)
 	return true;
 }
 
-/*bool j1EntityManager::PreUpdate(float dt)
+bool j1EntityManager::PreUpdate(float dt)
 {
 	return true;
-}*/
+}
 
 bool j1EntityManager::PostUpdate(float dt) {
 	return true;
@@ -162,13 +162,14 @@ void j1EntityManager::DeleteEntity() {
 j1Entity* j1EntityManager::GetPlayer() {
 
 	p2List_item<j1Entity*>* entities_list = entities.start;
-	while (entities_list) {
-		if (entities_list->data->name == "PLAYER") {
+	while (entities_list != nullptr) {
+		
+		if (entities_list->data->type == j1Entity::entity_type::PLAYER) {
 			return entities_list->data;
 		}
 		entities_list = entities_list->next;
 	}
-	return NULL;
+
 }
 
 

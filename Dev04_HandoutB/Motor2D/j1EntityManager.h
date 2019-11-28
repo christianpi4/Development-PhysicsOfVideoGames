@@ -12,7 +12,6 @@
 
 struct SDL_Texture;
 
-
 class j1EntityManager :public j1Module {
 
 public:

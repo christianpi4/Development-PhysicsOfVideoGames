@@ -1,4 +1,3 @@
-#pragma once
 #ifndef __j1ENTITY_H__
 #define __j1ENTITY_H__
 
@@ -8,7 +7,6 @@
 #include "SDL/include/SDL.h"
 #include "j1Module.h"
 #include "p2Point.h"
-#include "j1EntityManager.h"
 #include "p2Animation.h"
 
 struct Collider;

@@ -22,6 +22,8 @@ j1Entity::~j1Entity()
 bool j1Entity::CleanUp() {
 
 	entity_colliders->to_delete = true;
+	return true;
+
 }
 
 bool j1Entity::Load(pugi::xml_node& data) {
