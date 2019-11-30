@@ -2,7 +2,7 @@
 #ifndef __j1PLAYER_H__
 #define __j1PLAYER_H__
 
-#define LIMIT_TIMER 60
+#define LIMIT_TIMER 50
 
 #include "PugiXml/src/pugixml.hpp"
 #include "p2List.h"
@@ -15,8 +15,10 @@ struct Collider;
 
 enum states_player {
 	IDLE,
-	WALK,
-	RUN,
+	WALK_FORWARD,
+	WALK_BACKWARD,
+	RUN_FORWARD,
+	RUN_BACKWARD,
 	JUMP_UP,
 	JUMP_FALL,
 	JUMP_WALK,
@@ -51,7 +53,6 @@ struct PlayerData
 
 	iPoint position;	//Position of the player (x,y)
 	iPoint preposition;
-	iPoint a;	//Acceleration (x,y)
 		//Velocity of the jump (x,y)
 	iPoint v;	//Velocity of the player (x,y)
 
@@ -65,7 +66,7 @@ struct PlayerData
 	int jumpenergy;		//energy while is jumping
 	bool left=false;	//If left = true, jump running backward
 	bool right=false;	//If right = true, jump running forward
-	bool player_flip;
+	bool player_flip=false;
 	bool TimeAttack = false;
 
 	int gravity;

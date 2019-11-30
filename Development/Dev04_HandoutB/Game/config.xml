@@ -32,9 +32,9 @@
     <folder>textures/</folder>
     <texture source="rogue_spritesheed.png" />
     <position x="100" y="500" />
-    <jump_velocity jumpvel="-45" />
+    <jump_velocity jumpvel="-70" />
     <velocity x="5"/>
-    <velrun x="3"/>
+    <velrun x="10"/>
     <gravity grav="20" />
     <colOffset x="11" y="8" />
 	</player>

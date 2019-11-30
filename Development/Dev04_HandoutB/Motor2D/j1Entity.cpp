@@ -270,7 +270,8 @@ void j1Enemy::State(float dt) {
 		data_enemy.injump = true;
 		data_enemy.current_animation = &data_enemy.jump;
 
-		if (data_enemy.jumpenergy <= data_enemy.gravity) {									//character will jump up until it do not accomplish this condition 
+		if (data_enemy.
+		ergy <= data_enemy.gravity) {									//character will jump up until it do not accomplish this condition 
 			
 			data_enemy.jumpenergy += 0.5;														// jump up increments 0.5 each time
 			data_enemy.position.y = data_enemy.position.y + (data_enemy.jumpenergy *(dt * LIMIT_TIMER));			// y position increments 0.5 each time
