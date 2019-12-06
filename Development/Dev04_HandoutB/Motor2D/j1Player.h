@@ -15,10 +15,8 @@ struct Collider;
 
 enum states_player {
 	IDLE,
-	WALK_FORWARD,
-	WALK_BACKWARD,
-	RUN_FORWARD,
-	RUN_BACKWARD,
+	WALK,
+	RUN,
 	JUMP_UP,
 	JUMP_FALL,
 	JUMP_WALK,
@@ -63,7 +61,7 @@ struct PlayerData
 	bool injump=false;	//Says that the player is jumping or not
 	bool canjump = false;  //Says the player can jump or not
 	int jumpvel;		//Jump velocity only in y
-	int jumpenergy;		//energy while is jumping
+	int jumpenergy=0;		//energy while is jumping
 	bool left=false;	//If left = true, jump running backward
 	bool right=false;	//If right = true, jump running forward
 	bool player_flip=false;

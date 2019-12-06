@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <config>
-	<app framerate_cap="60">
+	<app framerate_cap="30">
 		<title>NINJA WARRIOR</title>
 		<organization>UPC</organization>
 	</app>
@@ -32,7 +32,7 @@
     <folder>textures/</folder>
     <texture source="rogue_spritesheed.png" />
     <position x="100" y="500" />
-    <jump_velocity jumpvel="-70" />
+    <jump_velocity jumpvel="-45" />
     <velocity x="5"/>
     <velrun x="10"/>
     <gravity grav="20" />
