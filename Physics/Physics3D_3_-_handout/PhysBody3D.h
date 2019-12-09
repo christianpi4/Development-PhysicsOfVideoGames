@@ -25,7 +25,7 @@ public:
 	void SetPos(float x, float y, float z);
 
 private:
-	btRigidBody* body;
+	btRigidBody* body=nullptr;
 	btCollisionShape* colShape = nullptr;
 	btDefaultMotionState* motionState = nullptr;
 	//TODO 1: Store all "new" created values

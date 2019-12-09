@@ -19,9 +19,13 @@ PhysBody3D::~PhysBody3D()
 {
 	//TODO 2: And delete them!
 	//delete parentPrimitive;
-	delete body;
+	if(colShape!=nullptr)
 	delete colShape;
+
+	if(motionState!=nullptr)
 	delete motionState;
+
+	//delete body;
 
 	//Make sure there's actually something to delete, check before deleting
 
@@ -31,7 +35,6 @@ void PhysBody3D::InitBody(Sphere* primitive, float mass)
 {
 	//TODO 1: Store all "new" created values
 	assert(HasBody() == false);
-	parentPrimitive = new Primitive();
 	parentPrimitive = primitive;
 
 	colShape = new btSphereShape(primitive->radius);
@@ -64,6 +67,8 @@ void PhysBody3D::GetTransform(float* matrix) const
 	if (HasBody() == false)
 		return;
 	//TODO 5: Set the Physical Body transform into "matrix"
+	this->body->getWorldTransform().getOpenGLMatrix(matrix);
+
 }
 
 // ---------------------------------------------------------
@@ -73,6 +78,11 @@ void PhysBody3D::SetTransform(const float* matrix) const
 		return;
 
 	//TODO 5: Set the Physical Body transform to equal "matrix"
+	btTransform transformation;
+	transformation.setFromOpenGLMatrix(matrix);
+	body->setWorldTransform(transformation);
+	body->activate();
+
 }
 
 // ---------------------------------------------------------
@@ -82,4 +92,9 @@ void PhysBody3D::SetPos(float x, float y, float z)
 		return;
 
 	//TODO 5: Set the Physical Body position to x, y, z. Make sure not to change the rotation!
+	btTransform transformation = body->getWorldTransform();
+	transformation.setOrigin({ x, y, z });
+	body->setWorldTransform(transformation);
+	body->activate();
+
 }

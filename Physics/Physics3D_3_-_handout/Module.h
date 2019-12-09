@@ -45,4 +45,7 @@ public:
 	}
 
 	//TODO 7: Create virtual method "On Collision", that recieves the two colliding PhysBodies
+	virtual void OnCollision(PhysBody3D* c1, PhysBody3D* c2)
+	{}
+
 };

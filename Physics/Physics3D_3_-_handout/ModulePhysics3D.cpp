@@ -76,12 +76,42 @@ update_status ModulePhysics3D::PreUpdate(float dt)
 	world->stepSimulation(dt, 15);
 
 	// TODO 8: Detect collisions:
+	
 	// - Get world dispatcher
+	btDispatcher* mainfold_count = world->getDispatcher();
+
 	// - Iterate all manifolds
-	// - Check we have more than 0 contacts
-	// - If we have contacts, get both PhysBody3D from userpointers
-	// - Make sure both PhysBodies exist!
-	// - Call "OnCollision" function on all listeners from both bodies
+	for (int i = 0; i < mainfold_count->getNumManifolds(); i++) {
+
+		btPersistentManifold* contact = world->getDispatcher()->getManifoldByIndexInternal(i);
+		
+		// - Check we have more than 0 contacts
+		if (contact->getNumContacts() > 0) {
+
+			PhysBody3D* bodyA = (PhysBody3D*)contact->getBody0()->getUserPointer();
+			PhysBody3D* bodyB = (PhysBody3D*)contact->getBody1()->getUserPointer();
+
+			// - If we have contacts, get both PhysBody3D from userpointers
+			// - Make sure both PhysBodies exist!
+			if (bodyA != nullptr && bodyB != nullptr)
+			{
+				// - Call "OnCollision" function on all listeners from both bodies
+				for (int j = 0; j < bodyA->collision_listeners.Count(); j++) {
+					bodyA->collision_listeners[j]->OnCollision(bodyA, bodyB);
+				}
+
+				for (int k = 0; k < bodyB->collision_listeners.Count(); k++) {
+					bodyB->collision_listeners[k]->OnCollision(bodyB, bodyA);
+				}
+			}
+
+		}
+	
+	}
+	
+	
+	
+	
 
 	return UPDATE_CONTINUE;
 }
