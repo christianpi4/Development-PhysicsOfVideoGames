@@ -27,6 +27,7 @@ bool ModuleSceneIntro::Start()
 
 	float XPos = 0.f;
 	float Size = StartingSize;
+	Sphere* auxiliar_sphere = nullptr;
 
 	for (int n = 0; n < SnakeLength; n++)
 	{
@@ -35,14 +36,14 @@ bool ModuleSceneIntro::Start()
 		s->SetPos(XPos, 10.f, 2.5f);
 
 		//TODO 2: Link all the spheres with your P2P constraints
-		if (n > 0) {
+		if (primitives.Count() > 1) {
 			
-			Primitive* sphere1 = *primitives.At(n);
-			Primitive* sphere2 = *primitives.At(n-1);
-
-			App->physics->AddConstraintP2P(*sphere1, *sphere2, { 0,0,0 }, { 0,0,0 });
+			App->physics->AddConstraintHinge(**primitives.At(n - 1), **primitives.At(n), btVector3{ (-s->GetRadius()),0,0 }, btVector3{ (auxiliar_sphere->GetRadius()),0,0 }, btVector3{ 0,0,1 }, btVector3{ 0,0,1 });
+			App->physics->AddConstraintP2P(**primitives.At(n-1), **primitives.At(n), btVector3{ (-s->GetRadius()),0,0 }, btVector3{ (auxiliar_sphere->GetRadius()),0,0 });
 
 		}
+
+		auxiliar_sphere = s;
 
 		XPos += Size + Size + SizeIncrement + BallDistance;
 		Size += SizeIncrement;

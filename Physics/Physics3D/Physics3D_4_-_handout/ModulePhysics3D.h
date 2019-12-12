@@ -45,6 +45,8 @@ private:
 	btSequentialImpulseConstraintSolver* solver;
 	btDiscreteDynamicsWorld*			world;
 	DebugDrawer*						debug_draw;
+	p2List<btPoint2PointConstraint*>	p2_constraint;
+	p2List<btHingeConstraint*>			hinge_constraint;
 };
 
 class DebugDrawer : public btIDebugDraw

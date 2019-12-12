@@ -176,14 +176,15 @@ void ModulePhysics3D::AddConstraintP2P(const Primitive& bodyA, const Primitive& 
 	btPoint2PointConstraint* point2point_constraint = new btPoint2PointConstraint(*bodyA.body.GetBody(), *bodyB.body.GetBody(), pivotA, pivotB);
 
 	world->addConstraint(point2point_constraint);
-
+	p2_constraint.add(point2point_constraint);
 }
 
 void ModulePhysics3D::AddConstraintHinge(const Primitive& bodyA, const Primitive& bodyB, const btVector3& pivotA, const btVector3& pivotB, btVector3& axisA, btVector3& axisB) {
 
-	btHingeConstraint* hinge_constraint = new btHingeConstraint(*bodyA.body.GetBody(), *bodyB.body.GetBody(), pivotA, pivotB, axisA, axisB);
+	btHingeConstraint* hinge_constraint2 = new btHingeConstraint(*bodyA.body.GetBody(), *bodyB.body.GetBody(), pivotA, pivotB, axisA, axisB);
 
-	world->addConstraint(hinge_constraint);
+	world->addConstraint(hinge_constraint2);
+	hinge_constraint.add(hinge_constraint2);
 
 }
 
